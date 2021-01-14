@@ -22,7 +22,7 @@ import { observer, inject } from 'mobx-react'
 import moment from 'moment-mini'
 import { get } from 'lodash'
 
-import { ReactComponent as ForkIcon } from 'src/assets/fork.svg'
+import { ReactComponent as ForkIcon } from 'assets/fork.svg'
 import Status from 'devops/components/Status'
 import CodeQualityStore from 'stores/devops/codeQuality'
 import DetailPage from 'devops/containers/Base/Detail'
@@ -80,9 +80,10 @@ export default class BranchDetailLayout extends React.Component {
   }
 
   getSonarqube = () => {
-    const { params } = this.props.match
-
-    this.sonarqubeStore.fetchDetail(params)
+    if (get(globals, 'config.devops.sonarqubeURL')) {
+      const { params } = this.props.match
+      this.sonarqubeStore.fetchDetail(params)
+    }
   }
 
   getOperations = () => [
@@ -151,7 +152,10 @@ export default class BranchDetailLayout extends React.Component {
   }
 
   render() {
-    const stores = { detailStore: this.store }
+    const stores = {
+      detailStore: this.store,
+      sonarqubeStore: this.sonarqubeStore,
+    }
     const { params } = this.props.match
     const { branch } = params
 

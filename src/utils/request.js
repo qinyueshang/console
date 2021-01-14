@@ -20,7 +20,6 @@ import 'whatwg-fetch'
 import qs from 'qs'
 import { isObject, get, set, merge, isEmpty } from 'lodash'
 import { getClusterUrl, safeParseJSON } from './index'
-import cookie from './cookie'
 
 const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 
@@ -33,7 +32,7 @@ const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
  * @param reject
  * @returns {Function}
  */
-module.exports = methods.reduce(
+export default methods.reduce(
   (prev, method) => ({
     ...prev,
     [method.toLowerCase()]: (url, params = {}, options, reject) =>
@@ -104,15 +103,6 @@ function buildRequest({
     responseHandler = handler
   }
 
-  if (
-    cookie('currentUser') &&
-    globals.user &&
-    globals.user.username !== cookie('currentUser')
-  ) {
-    location.href = '/'
-    return
-  }
-
   return fetch(getClusterUrl(requestURL), request).then(resp =>
     responseHandler(resp, reject)
   )
@@ -177,6 +167,7 @@ function handleResponse(response, reject) {
       if (typeof reject === 'function') {
         return reject(error, response)
       }
+
       if (window.onunhandledrejection) {
         window.onunhandledrejection(error)
       }

@@ -21,8 +21,8 @@ import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
 import { Provider } from 'mobx-react'
 import { syncHistoryWithStore } from 'mobx-react-router'
-import { lazy } from 'utils'
 import { renderRoutes } from 'utils/router.config'
+import { lazy } from 'utils'
 
 import RootStore from 'stores/root'
 
@@ -31,7 +31,9 @@ import 'scss/main.scss'
 
 import routes from './routes'
 
-const getActions = lazy(() => import('src/actions'))
+const getActions = lazy(() =>
+  import(/* webpackChunkName: "actions" */ 'actions')
+)
 
 class App extends Component {
   constructor(props) {

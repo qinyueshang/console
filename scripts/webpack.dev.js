@@ -17,9 +17,9 @@
  */
 
 const { resolve } = require('path')
-const merge = require('lodash/merge')
 const webpack = require('webpack')
-const WebpackNotifier = require('webpack-notifier')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const baseConfig = require('./webpack.base')
 
 const root = path => resolve(__dirname, `../${path}`)
@@ -27,15 +27,15 @@ const root = path => resolve(__dirname, `../${path}`)
 const config = {
   mode: 'development',
   entry: {
-    main: ['react-hot-loader/patch', './src/core/index.js'],
+    main: ['webpack-hot-middleware/client', './src/core/index.js'],
   },
   output: {
     filename: '[name].js',
-    path: root('build/'),
+    path: root('dist/'),
     publicPath: '/',
     pathinfo: false,
   },
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       ...baseConfig.moduleRules,
@@ -61,11 +61,7 @@ const config = {
       {
         test: /\.s[ac]ss$/i,
         include: root('node_modules'),
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-        ],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.css$/,
@@ -90,16 +86,10 @@ const config = {
     ],
   },
   optimization: {
-    flagIncludedChunks: true,
-    occurrenceOrder: true,
     usedExports: true,
-    sideEffects: true,
-    concatenateModules: true,
     splitChunks: {
-      chunks: 'all',
+      chunks: 'async',
       minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 5,
       cacheGroups: {
         vendors: {
           test: /[\\/]node_modules[\\/](?!(ace-builds|react-ace|xterm)).*.jsx?$/,
@@ -114,39 +104,23 @@ const config = {
       },
     },
   },
-  resolve: merge({}, baseConfig.resolve, {
-    alias: { 'react-dom': '@hot-loader/react-dom' },
-  }),
+  resolve: baseConfig.resolve,
   plugins: [
     ...baseConfig.plugins,
-    new webpack.NamedModulesPlugin(),
+    new HardSourceWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin({ overlay: false }),
     new webpack.WatchIgnorePlugin([
+      root('node_modules'),
       root('server'),
       root('build'),
       root('dist'),
     ]),
-    new WebpackNotifier({
-      title: `Kubesphere console`,
-      alwaysNotify: true,
-      excludeWarnings: true,
-    }),
     new webpack.DefinePlugin({
       'process.env.BROWSER': true,
       'process.env.NODE_ENV': JSON.stringify('development'),
     }),
   ],
-  devServer: {
-    publicPath: '/',
-    compress: true,
-    noInfo: false,
-    quiet: false,
-    hot: true,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
-    host: '0.0.0.0',
-    port: 8001,
-  },
 }
 
 module.exports = config

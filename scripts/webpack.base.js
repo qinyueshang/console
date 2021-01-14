@@ -20,8 +20,12 @@ const { resolve } = require('path')
 const autoprefixer = require('autoprefixer')
 const HappyPack = require('happypack')
 const WebpackBar = require('webpackbar')
+const WebpackAssetsManifest = require('webpack-assets-manifest')
+const LocalePlugin = require('./locale-plugin')
 
 const root = path => resolve(__dirname, `../${path}`)
+
+const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
   entry: {
@@ -30,7 +34,7 @@ module.exports = {
   moduleRules: [
     {
       test: /\.jsx?$/,
-      include: [root('src'), root('common')],
+      include: root('src'),
       use: 'happypack/loader?id=jsx',
     },
     {
@@ -56,21 +60,27 @@ module.exports = {
     extensions: ['.js', '.jsx', '.scss'],
     symlinks: false,
     modules: [root('src'), root('src/pages'), 'node_modules'],
-    alias: {
-      src: root('src'),
-      scss: root('src/scss'),
-      core: root('src/core'),
-      configs: root('src/configs'),
-      components: root('src/components'),
-      layouts: root('src/layouts'),
-      stores: root('src/stores'),
-      utils: root('src/utils'),
-    },
   },
   plugins: [
     new HappyPack({
       id: 'jsx',
-      loaders: ['babel-loader?cacheDirectory'],
+      loaders: [
+        {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+            plugins: isDev ? [require.resolve('react-refresh/babel')] : [],
+          },
+        },
+      ],
+    }),
+    new WebpackAssetsManifest({
+      entrypoints: true,
+      writeToDisk: true,
+      output: '../dist/manifest.json',
+    }),
+    new LocalePlugin({
+      locales: '../locales',
     }),
     new WebpackBar(),
   ],
@@ -82,7 +92,6 @@ module.exports = {
         browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9'],
         flexbox: 'no-2009',
       }),
-      require('postcss-remove-google-fonts'),
     ],
   },
 }

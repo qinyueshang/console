@@ -25,8 +25,8 @@ import { Form, Icon, Select, Tooltip } from '@kube-design/components'
 import { joinSelector, mergeLabels } from 'utils'
 import { MODULE_KIND_MAP } from 'utils/constants'
 import FORM_TEMPLATES from 'utils/form.templates'
-import ApplicationStore from 'src/stores/application/crd'
-import ServiceStore from 'src/stores/service'
+import ApplicationStore from 'stores/application/crd'
+import ServiceStore from 'stores/service'
 
 import SelectComponent from './SelectComponent'
 
@@ -51,7 +51,11 @@ export default class Components extends React.Component {
 
   componentDidMount() {
     this.appStore
-      .fetchList({ namespace: this.namespace, cluster: this.props.cluster })
+      .fetchList({
+        namespace: this.namespace,
+        cluster: this.props.cluster,
+        limit: -1,
+      })
       .then(() => {
         const data = toJS(this.appStore.list.data)
         const app = data.find(item => item.serviceMeshEnable) || {}
@@ -179,8 +183,14 @@ export default class Components extends React.Component {
 
       set(this.formTemplate, 'metadata.labels.app', value)
       set(this.formTemplate, 'spec.selector.matchLabels.app', value)
+      set(this.formTemplate, 'spec.template.spec', { hosts: [value] })
       set(this.formTemplate, 'spec.principal', version)
       set(this.formTemplate, 'spec.protocol', protocol)
+      set(
+        this.formTemplate,
+        'metadata.annotations["servicemesh.kubesphere.io/oldWorkloadName"]',
+        workload.name
+      )
       set(
         this.formTemplate,
         'metadata.annotations["servicemesh.kubesphere.io/workloadType"]',
@@ -191,7 +201,6 @@ export default class Components extends React.Component {
         'metadata.annotations["servicemesh.kubesphere.io/workloadReplicas"]',
         String(workload.podNums)
       )
-      set(this.formTemplate, 'spec.template.spec', { hosts: [value] })
 
       this.props.formTemplate.workload = {
         apiVersion: template.apiVersion,

@@ -21,7 +21,7 @@ import { toJS } from 'mobx'
 import { observer, inject } from 'mobx-react'
 
 import moment from 'moment-mini'
-import { get, isEmpty, has } from 'lodash'
+import { get, isEmpty, has, isArray } from 'lodash'
 
 import { Notify } from '@kube-design/components'
 import Status from 'devops/components/Status'
@@ -73,7 +73,7 @@ export default class PipelineDetailLayout extends React.Component {
 
     this.setBranchNames(toJS(detail.branchNames), params)
     this.getPipeLineConfig()
-    this.sonarqubeStore.fetchDetail(params)
+    this.getSonarqube()
   }
 
   fetchData = async () => {
@@ -84,7 +84,7 @@ export default class PipelineDetailLayout extends React.Component {
 
     this.setBranchNames(toJS(detail.branchNames), params)
     this.getPipeLineConfig()
-    this.sonarqubeStore.fetchDetail(params)
+    this.getSonarqube()
   }
 
   getPipeLineConfig = async () => {
@@ -93,17 +93,22 @@ export default class PipelineDetailLayout extends React.Component {
 
     pipeLineConfig.devops = params.devops
     pipeLineConfig.cluster = params.cluster
+    pipeLineConfig.devopsName = this.props.devopsStore.devopsName
 
     this.setState({ formTemplate: pipeLineConfig })
   }
 
   setBranchNames = (branchNames, params) => {
-    isEmpty(branchNames) ? (params.branch = 'master') : null
+    isArray(branchNames) && !isEmpty(branchNames)
+      ? (params.branch = branchNames[0])
+      : null
   }
 
   getSonarqube = () => {
-    const { params } = this.props.match
-    this.sonarqubeStore.fetchDetail(params)
+    if (get(globals, 'config.devops.sonarqubeURL')) {
+      const { params } = this.props.match
+      this.sonarqubeStore.fetchDetail(params)
+    }
   }
 
   getUpTime = activityList => {
@@ -239,7 +244,10 @@ export default class PipelineDetailLayout extends React.Component {
   }
 
   render() {
-    const stores = { detailStore: this.store }
+    const stores = {
+      detailStore: this.store,
+      sonarqubeStore: this.sonarqubeStore,
+    }
     const operations = this.getOperations().filter(item =>
       this.enabledActions.includes(item.action)
     )

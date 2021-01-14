@@ -36,13 +36,14 @@ const {
   handleLogin,
   handleLogout,
   handleOAuthLogin,
+  handleLoginConfirm,
 } = require('./controllers/session')
 
 const {
   renderView,
   renderLogin,
+  renderLoginConfirm,
   renderMarkdown,
-  renderCaptcha,
 } = require('./controllers/view')
 
 const parseBody = convert(
@@ -57,25 +58,24 @@ const router = new Router()
 
 router
   .use(proxy('/devops_webhook/(.*)', devopsWebhookProxy))
-  .get('/captcha', renderCaptcha)
-
-  .all('/(k)?api(s)?/(.*)', checkToken, checkIfExist)
-
-  .use(proxy('/(k)?api(s)?/(.*)', k8sResourceProxy))
   .use(proxy('/b2i_download/(.*)', b2iFileProxy))
   .get('/dockerhub/(.*)', parseBody, handleDockerhubProxy)
+  .get('/blank_md', renderMarkdown)
+
+  .all('/(k)?api(s)?/(.*)', checkToken, checkIfExist)
+  .use(proxy('/(k)?api(s)?/(.*)', k8sResourceProxy))
 
   .get('/sample/:app', parseBody, handleSampleData)
 
   // session
   .post('/login', parseBody, handleLogin)
-  .post('/logout', handleLogout)
   .get('/login', renderLogin)
+  .post('/login/confirm', parseBody, handleLoginConfirm)
+  .get('/login/confirm', renderLoginConfirm)
+  .post('/logout', handleLogout)
 
+  // oauth
   .get('/oauth/redirect', handleOAuthLogin)
-
-  // markdown template
-  .get('/blank_md', renderMarkdown)
 
   // page entry
   .all('*', renderView)

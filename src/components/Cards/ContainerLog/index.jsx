@@ -17,43 +17,38 @@
  */
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { observer } from 'mobx-react'
 import { saveAs } from 'file-saver'
 import { get, isEmpty } from 'lodash'
+import AnsiUp from 'ansi_up'
 
 import { PATTERN_UTC_TIME } from 'utils/constants'
 import { Icon, Loading, Notify, Tooltip } from '@kube-design/components'
 import { Card, Empty } from 'components/Base'
 import ContainerStore from 'stores/container'
+import PodStore from 'stores/pod'
 
 import styles from './index.scss'
 
+const converter = new AnsiUp()
+
 @observer
 export default class ContainerLog extends React.Component {
-  static propTypes = {
-    title: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.node,
-      PropTypes.element,
-    ]),
-    store: PropTypes.object,
-  }
-
   constructor(props) {
     super(props)
 
     this.state = {
       loadingPrev: false,
       loadingNext: false,
-      isRealtime: false,
       isDownloading: false,
+      isRealtime: !!props.isRealtime,
     }
 
     this.tailLines = 1000
 
     this.store = new ContainerStore()
+    this.podStore = new PodStore()
 
     this.ref = React.createRef()
   }
@@ -62,28 +57,61 @@ export default class ContainerLog extends React.Component {
     this.getData({}, this.scrollToBottom)
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.podName && this.props.podName !== prevProps.podName) {
+      this.getData({}, this.scrollToBottom)
+    }
+  }
+
   componentWillUnmount() {
     this.store.stopWatchLogs()
   }
 
-  getData(params, callback) {
-    const { cluster, namespace, podName, containerName } = this.props
+  async getData(params, callback) {
+    const {
+      cluster,
+      namespace,
+      podName,
+      containerName,
+      previous = false,
+    } = this.props
 
     this.store.stopWatchLogs()
 
-    return this.store.watchLogs(
-      {
+    const result = await this.podStore.checkName({
+      cluster,
+      namespace,
+      name: podName,
+    })
+
+    let showPrevious = false
+    if (previous) {
+      showPrevious = await this.store.checkPreviousLog({
         cluster,
         namespace,
         podName,
         container: containerName,
-        tailLines: this.tailLines,
-        timestamps: true,
-        follow: this.state.isRealtime,
-        ...params,
-      },
-      callback
-    )
+        tailLines: 10,
+        previous: true,
+      })
+    }
+
+    if (result.exist) {
+      this.store.watchLogs(
+        {
+          cluster,
+          namespace,
+          podName,
+          container: containerName,
+          tailLines: this.tailLines,
+          timestamps: true,
+          follow: this.state.isRealtime,
+          previous: showPrevious,
+          ...params,
+        },
+        callback
+      )
+    }
   }
 
   scrollToBottom = () => {
@@ -227,7 +255,14 @@ export default class ContainerLog extends React.Component {
           const match = text.match(PATTERN_UTC_TIME)
           const key = match ? match[0] : index
           const content = match ? text.replace(match[0], '') : text
-          return <p key={key} dangerouslySetInnerHTML={{ __html: content }} />
+          return (
+            <p
+              key={key}
+              dangerouslySetInnerHTML={{
+                __html: converter.ansi_to_html(content),
+              }}
+            />
+          )
         })}
         <div className={styles.loading}>
           <Loading spinning={loadingNext} size="small" />

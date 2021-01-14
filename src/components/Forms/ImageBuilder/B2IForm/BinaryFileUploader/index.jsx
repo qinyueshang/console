@@ -24,7 +24,7 @@ import classnames from 'classnames'
 import { formatSize } from 'utils'
 import { B2I_SUPPORTED_TYPES } from 'utils/constants'
 
-import BuilderStore from 'src/stores/s2i/builder'
+import BuilderStore from 'stores/s2i/builder'
 import styles from './index.scss'
 
 const headers = {
@@ -255,7 +255,7 @@ class Uploader extends React.Component {
               type="coloured"
             />
             <p className={styles.title}>
-              {t('Click to select the artifact file to upload')}
+              {t('Click to upload an artifact')}
             </p>
             <p className={styles.desc}>
               {t(`${this.filesType.toUpperCase() || 'B2I_DEFAULT'}_DESC`)}

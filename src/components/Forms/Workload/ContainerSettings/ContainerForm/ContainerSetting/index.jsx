@@ -18,7 +18,7 @@
 
 import React from 'react'
 import { get, isEmpty } from 'lodash'
-import { generateId } from 'utils'
+import { generateId, parseDockerImage } from 'utils'
 
 import { PATTERN_NAME } from 'utils/constants'
 
@@ -64,14 +64,31 @@ export default class ContainerSetting extends React.Component {
       const auths = get(item, 'data[".dockerconfigjson"].auths', {})
       const url = Object.keys(auths)[0] || ''
       const username = get(auths[url], 'username')
+      const cluster = item.isFedManaged
+        ? get(item, 'clusters[0].name')
+        : item.cluster
 
       return {
         url,
         username,
         label: item.name,
         value: item.name,
+        cluster,
       }
     })
+  }
+
+  getFormTemplate(data, imageRegistries) {
+    if (data && data.image && !data.pullSecret) {
+      const { registry } = parseDockerImage(data.image)
+      if (registry) {
+        const reg = imageRegistries.find(({ url }) => url.endsWith(registry))
+        if (reg) {
+          data.pullSecret = reg.value
+        }
+      }
+    }
+    return data
   }
 
   valueRenderer = option => (
@@ -85,16 +102,16 @@ export default class ContainerSetting extends React.Component {
 
   renderImageForm = () => {
     const { data, namespace } = this.props
-    const cluster = get(this.props.imageRegistries, '[0].cluster')
+    const imageRegistries = this.imageRegistries
+    const formTemplate = this.getFormTemplate(data, imageRegistries)
 
     return (
       <ImageInput
+        className={styles.imageSearch}
         name="image"
         namespace={namespace}
-        cluster={cluster}
-        className={styles.imageSearch}
-        formTemplate={data}
-        imageRegistries={this.imageRegistries}
+        formTemplate={formTemplate}
+        imageRegistries={imageRegistries}
       />
     )
   }

@@ -78,14 +78,16 @@ export default class AdvanceSettings extends React.Component {
     const owner = get(formTemplate, `${this.scmPrefix}.owner`, '')
     const repo = get(formTemplate, `${this.scmPrefix}.repo`, '')
     const bitbucket_url = `${api_uri}/scm/${owner}/${repo}.git`
+    const cluster = get(formTemplate, 'cluster')
+    const clusterUrl = cluster ? `cluster/${cluster}/` : ''
 
     switch (this.sourceType) {
       case 'bitbucket_server':
-        return `${window.location.protocol}//${window.location.host}/devops_webhook/git/?url=${bitbucket_url}`
+        return `${window.location.protocol}//${window.location.host}/${clusterUrl}devops_webhook/git/?url=${bitbucket_url}`
       case 'github':
-        return `${window.location.protocol}//${window.location.host}/devops_webhook/${this.sourceType}/`
+        return `${window.location.protocol}//${window.location.host}/${clusterUrl}devops_webhook/${this.sourceType}/`
       default:
-        return `${window.location.protocol}//${window.location.host}/devops_webhook/git/?url=${url}`
+        return `${window.location.protocol}//${window.location.host}/${clusterUrl}devops_webhook/git/?url=${url}`
     }
   }
 
@@ -99,12 +101,11 @@ export default class AdvanceSettings extends React.Component {
 
   componentDidMount() {
     const { devopsName, cluster, devops } = this.props.formTemplate
-
     this.pipelineStore.fetchList({
       devopsName,
       devops,
       cluster,
-      filter: 'no-multi-branch-job',
+      filter: 'no-folders',
     })
   }
 
@@ -120,15 +121,10 @@ export default class AdvanceSettings extends React.Component {
     }
   }
 
-  checkCronScript = async () => {
+  checkCronScript = async (rule, value, callback) => {
     const { formTemplate, type } = this.props
     const { devopsName, name, cluster } = formTemplate
-    const script = get(formTemplate, `${this.prefix}.timer_trigger.cron`, '')
-
-    if (!script || this.script === script) {
-      return
-    }
-    this.script = script
+    const script = value
 
     const result = await this.scmStore.checkCronScript({
       devops: devopsName,
@@ -138,7 +134,8 @@ export default class AdvanceSettings extends React.Component {
     })
 
     if (result.result === 'error') {
-      this.setState({ cronMessage: { error: result.message } })
+      this.setState({ cronMessage: { error: result.message } }, () => {})
+      callback(result.message)
       return
     }
 
@@ -151,8 +148,8 @@ export default class AdvanceSettings extends React.Component {
           `${t('MMMM Do YYYY')} HH:mm:ss`
         ),
       })
-
       this.setState({ cronMessage: { message } })
+      callback()
     }
   }
 
@@ -168,7 +165,7 @@ export default class AdvanceSettings extends React.Component {
       devopsName,
       cluster,
       devops,
-      filter: 'no-multi-branch-job',
+      filter: 'no-folders',
       page: page + 1,
     })
   }
@@ -193,7 +190,11 @@ export default class AdvanceSettings extends React.Component {
             'If you check this option, you cannot run multiple builds concurrently.'
           )}
         >
-          <Checkbox name={`${this.prefix}.disable_concurrent`} value={true}>
+          <Checkbox
+            name={`${this.prefix}.disable_concurrent`}
+            checked={formTemplate[`${this.prefix}.disable_concurrent`]}
+            defaultValue={true}
+          >
             {t('No Concurrent Builds')}
           </Checkbox>
         </Form.Item>
@@ -211,6 +212,7 @@ export default class AdvanceSettings extends React.Component {
         <Form.Item>
           <Checkbox
             name={`enable_timer_trigger`}
+            checked={enable_timer_trigger}
             onChange={this.handleChange('enable_timer_trigger')}
           >
             {t('Scheduled Build')}
@@ -228,17 +230,12 @@ export default class AdvanceSettings extends React.Component {
                     t.html('PIPELINE_CRONJOB_CRON_DESC')
                   }
                   tip={t('tips_timer_trigger')}
-                  error={
-                    this.state.cronMessage.error
-                      ? { message: this.state.cronMessage.error }
-                      : null
-                  }
+                  rules={[{ validator: this.checkCronScript }]}
                 >
                   <Input
                     name={`${this.prefix}.timer_trigger.cron`}
                     placeholder="Every hour, on the hour"
                     onChange={this.removeCronError}
-                    onBlur={this.checkCronScript}
                   />
                 </Form.Item>
               </Column>
@@ -248,6 +245,7 @@ export default class AdvanceSettings extends React.Component {
         <Form.Item>
           <Checkbox
             name="enable_remote_trigger"
+            checked={enable_remote_trigger}
             onChange={this.handleChange('enable_remote_trigger')}
           >
             {t('Trigger a Remote Build (for example, using a script)')}
@@ -274,6 +272,7 @@ export default class AdvanceSettings extends React.Component {
   }
 
   renderGitOptions() {
+    const { formTemplate } = this.props
     return (
       <>
         <div className="h6">{t('Git Clone Options')}</div>
@@ -297,6 +296,7 @@ export default class AdvanceSettings extends React.Component {
         </Columns>
         <Form.Item>
           <Checkbox
+            checked={formTemplate[`${this.scmPrefix}.git_clone_option.shallow`]}
             name={`${this.scmPrefix}.git_clone_option.shallow`}
             defaultValue={false}
           >
@@ -319,6 +319,7 @@ export default class AdvanceSettings extends React.Component {
       <>
         <Form.Item>
           <Checkbox
+            checked={enable_regex_filter}
             name="enable_regex_filter"
             onChange={this.handleChange('enable_regex_filter')}
           >
@@ -358,11 +359,14 @@ export default class AdvanceSettings extends React.Component {
 
     return (
       <div>
-        {source_type === 'github' ? (
+        {source_type !== 'git' && source_type !== 'svn' ? (
           <React.Fragment>
             <div className="h6">{t('Behavioral strategy')}</div>
             <Form.Item>
-              <ActionsInput name="multi_branch_pipeline.github_source" />
+              <ActionsInput
+                sourceType={source_type}
+                name={`multi_branch_pipeline.${source_type}_source`}
+              />
             </Form.Item>
           </React.Fragment>
         ) : null}
@@ -382,6 +386,7 @@ export default class AdvanceSettings extends React.Component {
         {hasWebhook ? this.renderRegFilter() : null}
         <Form.Item>
           <Checkbox
+            checked={enable_timer_trigger}
             name="enable_timer_trigger"
             onChange={this.handleChange('enable_timer_trigger')}
           >
@@ -407,6 +412,7 @@ export default class AdvanceSettings extends React.Component {
         <div className="h6">{t('Build Trigger')}</div>
         <Form.Item>
           <Checkbox
+            checked={enable_multibranch_job_trigger}
             name="enable_multibranch_job_trigger"
             onChange={this.handleChange('enable_multibranch_job_trigger')}
           >
@@ -543,7 +549,7 @@ export default class AdvanceSettings extends React.Component {
           </div>
           <Form.Item>
             <Checkbox
-              value={true}
+              checked={formTemplate.enable_discarder}
               name="enable_discarder"
               onChange={this.handleChange('enable_discarder')}
             >

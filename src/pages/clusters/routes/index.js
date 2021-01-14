@@ -22,7 +22,6 @@ import ClusterLayout from '../containers/layout'
 import ListLayout from '../containers/Base/List'
 
 import Clusters from '../containers/Clusters'
-import AddCluster from '../containers/Clusters/AddCluster'
 import Overview from '../containers/Overview'
 import StorageClasses from '../containers/Storage/StorageClasses'
 import VolumeSnapshots from '../containers/Storage/VolumeSnapshots'
@@ -51,10 +50,12 @@ import Visibility from '../containers/Visibility'
 import KubeCtl from '../containers/KubeCtl'
 import KubeConfig from '../containers/KubeConfig'
 import NetworkPolicies from '../containers/Network/Policies'
+import IPPools from '../containers/Network/IPPools'
 import AlertMessages from '../containers/Alerting/Messages'
 import AlertPolicies from '../containers/Alerting/Policies'
 import MailServer from '../containers/MailServices'
 import LogCollections from '../containers/LogCollections'
+import CustomMonitoring from '../containers/CustomMonitoring'
 
 import detail from './detail'
 
@@ -73,7 +74,6 @@ export default [
         },
     exact: true,
   },
-  { path: '/clusters/add', component: AddCluster, exact: true },
   {
     path: PATH,
     component: ClusterLayout,
@@ -232,6 +232,11 @@ export default [
             exact: true,
           },
           {
+            path: `${PATH}/ippools`,
+            component: IPPools,
+            exact: true,
+          },
+          {
             path: `${PATH}/mail-server`,
             component: MailServer,
             exact: true,
@@ -239,6 +244,11 @@ export default [
           {
             path: `${PATH}/log-collections/:component`,
             component: LogCollections,
+          },
+          {
+            path: `${PATH}/custom-monitoring`,
+            component: CustomMonitoring,
+            exact: true,
           },
           getIndexRoute({ path: PATH, to: `${PATH}/overview`, exact: true }),
           getIndexRoute({

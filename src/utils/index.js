@@ -367,15 +367,6 @@ export const getDisplayName = item => {
   return `${item.name}${item.aliasName ? `(${item.aliasName})` : ''}`
 }
 
-export const formatRules = rules =>
-  (rules || []).reduce(
-    (prev, cur) => ({
-      ...prev,
-      [cur.name]: cur.actions,
-    }),
-    {}
-  )
-
 export const getWebSocketProtocol = protocol => {
   if (protocol.startsWith('https')) {
     return 'wss'
@@ -468,7 +459,7 @@ export const replaceToLocalOrigin = url => {
 }
 
 /**
- * send the k8s requests with dry run
+ * send the K8s requests with dry run
  * @param {Object[]} requests - the requests need dry run.
  * @param {string} requests[].url - the url of a request
  * @param {Object} requests[].data - the data of a request
@@ -507,6 +498,31 @@ export const getClusterUrl = url => {
   }
 
   return requestURL.replace(/\/\/+/, '/')
+}
+
+export const parseDockerImage = url => {
+  const match = url.match(
+    /^(?:([^/]+)\/)?(?:([^/]+)\/)?([^@:/]+)(?:[@:](.+))?$/
+  )
+
+  if (!match) return {}
+
+  let registry = match[1]
+  let namespace = match[2]
+  const repository = match[3]
+  const tag = match[4]
+
+  if (!namespace && registry && !/[:.]/.test(registry)) {
+    namespace = registry
+    registry = null
+  }
+
+  return {
+    registry: registry || null,
+    namespace: namespace || null,
+    repository,
+    tag: tag || null,
+  }
 }
 
 export const lazy = ctor => () => ctor()

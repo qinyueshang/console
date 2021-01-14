@@ -24,8 +24,9 @@ import moment from 'moment-mini'
 
 import { Button, RadioGroup, Columns, Column } from '@kube-design/components'
 
-import AppPreview from 'appStore/components/AppPreview'
-import AppBase from 'appStore/components/AppBase'
+import { TypeSelect } from 'components/Base'
+import AppPreview from 'apps/components/AppPreview'
+import AppBase from 'apps/components/AppBase'
 
 import AppStore from 'stores/openpitrix/app'
 import VersionStore from 'stores/openpitrix/version'

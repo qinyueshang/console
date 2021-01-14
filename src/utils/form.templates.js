@@ -491,6 +491,55 @@ const getDashboardTemplate = ({ namespace }) => ({
   spec: {},
 })
 
+const getClusterDashboardTemplate = () => ({
+  apiVersion: 'monitoring.kubesphere.io/v1alpha1',
+  kind: 'ClusterDashboard',
+  metadata: {},
+  spec: {},
+})
+
+const getServiceMonitorTemplate = ({ name, namespace }) => ({
+  apiVersion: 'monitoring.coreos.com/v1',
+  kind: 'ServiceMonitor',
+  metadata: {
+    name,
+    namespace,
+  },
+  spec: {},
+})
+
+const getWorkspaceRoleBindingTemplate = ({ name, role }) => ({
+  kind: 'WorkspaceRoleBinding',
+  apiVersion: 'iam.kubesphere.io/v1alpha2',
+  subjects: [
+    {
+      kind: 'Group',
+      apiGroup: 'rbac.authorization.k8s.io',
+      name,
+    },
+  ],
+  roleRef: {
+    apiGroup: 'iam.kubesphere.io/v1alpha2',
+    kind: 'WorkspaceRole',
+    name: role,
+  },
+})
+
+const getRolebindingTemplate = ({ name, role }) => ({
+  subjects: [
+    {
+      kind: 'Group',
+      apiGroup: 'rbac.authorization.k8s.io',
+      name,
+    },
+  ],
+  roleRef: {
+    apiGroup: 'rbac.authorization.k8s.io',
+    kind: 'Role',
+    name: role,
+  },
+})
+
 const FORM_TEMPLATES = {
   deployments: getDeploymentTemplate,
   daemonsets: getDaemonSetTemplate,
@@ -520,7 +569,11 @@ const FORM_TEMPLATES = {
   'volume-snapshots': getVolumeSnapshotTemplate,
   namespacenetworkpolicies: getNameSpaceNetworkPoliciesTemplate,
   dashboards: getDashboardTemplate,
+  clusterdashboards: getClusterDashboardTemplate,
   federated: getFederatedTemplate,
+  servicemonitors: getServiceMonitorTemplate,
+  workspacerolebinding: getWorkspaceRoleBindingTemplate,
+  rolebinding: getRolebindingTemplate,
 }
 
 export default FORM_TEMPLATES

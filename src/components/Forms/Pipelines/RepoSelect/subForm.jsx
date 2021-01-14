@@ -25,7 +25,7 @@ import { get, isEmpty, omitBy } from 'lodash'
 import { Icon } from '@kube-design/components'
 import SCMStore from 'stores/devops/scm'
 import { REPO_TYPES, REPO_KEY_MAP } from 'utils/constants'
-import { ReactComponent as BackIcon } from 'src/assets/back.svg'
+import { ReactComponent as BackIcon } from 'assets/back.svg'
 
 import CredentialModal from 'components/Modals/CredentialCreate'
 
@@ -34,6 +34,7 @@ import GithubForm from './GithubForm'
 import SvnForm from './SVNForm'
 import BitBucketForm from './BitBucketForm'
 import styles from './index.scss'
+import GitLabForm from './GitLabForm'
 
 @observer
 export default class RepoSelectForm extends React.Component {
@@ -142,13 +143,24 @@ export default class RepoSelectForm extends React.Component {
           })
         }
 
+        if (this.source_type === 'gitlab') {
+          onSave('gitlab', {
+            gitlab_source: {
+              ...formData.gitlab_source,
+              discover_branches: 1,
+              discover_pr_from_forks: { strategy: 2, trust: 2 },
+              discover_pr_from_origin: 2,
+              discover_tags: true,
+            },
+          })
+        }
+
         if (['svn', 'single_svn'].includes(this.source_type)) {
           const type = get(formData, 'svn_source.type', 'svn')
           onSave(type, {
             [REPO_KEY_MAP[type]]: {
               ...formData.svn_source,
               remote: get(formData, 'svn_source.remote', '').trim(),
-              discover_branches: true,
             },
           })
         }
@@ -228,6 +240,19 @@ export default class RepoSelectForm extends React.Component {
           handleSubmit={this.handleSubmit}
           cluster={cluster}
           devops={devops}
+        />
+      )
+    }
+
+    if (this.source_type === 'gitlab') {
+      return (
+        <GitLabForm
+          store={this.store}
+          formRef={this.formRef}
+          handleSubmit={this.handleSubmit}
+          cluster={cluster}
+          devops={devops}
+          showCredential={this.showCreateCredential}
         />
       )
     }

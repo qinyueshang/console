@@ -42,7 +42,7 @@ import { getLocalTime, formatUsedTime } from 'utils'
 
 import Status from 'devops/components/Status'
 import { getPipelineStatus } from 'utils/status'
-import { ReactComponent as ForkIcon } from 'src/assets/fork.svg'
+import { ReactComponent as ForkIcon } from 'assets/fork.svg'
 
 import { trigger } from 'utils/action'
 import Table from 'components/Tables/List'
@@ -100,6 +100,7 @@ export default class Activity extends React.Component {
     const { params } = this.props.match
     const isMultibranch = detail.branchNames
     const hasParameters = detail.parameters && detail.parameters.length
+    Notify.success({ content: `${t('Run Start')}!` })
 
     if (isMultibranch || hasParameters) {
       this.trigger('pipeline.params', {
@@ -340,9 +341,9 @@ export default class Activity extends React.Component {
     const { data, isLoading, total, page, limit, filters } = activityList
     const omitFilters = omit(filters, 'page', 'workspace')
     const pagination = { total, page, limit }
-    const isEmptyList = isLoading === false && data.length === 0
+    const isEmptyList = total === 0
 
-    if (isEmptyList && !filters.page) {
+    if (isEmptyList) {
       const { detail } = this.store
       const runnable = this.enabledActions.includes('edit')
       const isMultibranch = detail.branchNames

@@ -18,7 +18,6 @@
 
 const { resolve } = require('path')
 const webpack = require('webpack')
-const CopyPlugin = require('copy-webpack-plugin')
 
 const root = path => resolve(__dirname, `../${path}`)
 
@@ -41,7 +40,11 @@ module.exports = {
   optimization: {
     minimize: false,
   },
-  externals: { hiredis: 'hiredis' }, // Need this to avoid error when working with Express
+  externals: {
+    hiredis: 'hiredis',
+    webpack: 'webpack',
+    'koa-webpack-middleware': 'koa-webpack-middleware',
+  }, // Need this to avoid error when working with Express
   module: {
     rules: [
       {
@@ -60,8 +63,5 @@ module.exports = {
       'process.env.BROWSER': false,
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    new CopyPlugin([
-      { from: root('node_modules/svg-captcha/fonts'), to: root('dist/fonts') },
-    ]),
   ],
 }
