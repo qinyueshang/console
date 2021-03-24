@@ -45,7 +45,7 @@ module.exports = {
   auditing: 'auditando',
   Auditing: 'Auditando',
   'Auditing Operating': 'Auditoría Operativa',
-  author: 'autor',
+  Author: 'Author',
   'Back To List': 'Volver a la lista',
   'Basic Info': 'Información básica',
   'Basic Information': 'Información básica',
@@ -117,7 +117,7 @@ module.exports = {
   Enable: 'Habilitar',
   Enabled: 'Habilitado',
   'End Time': 'Hora de finalización',
-  'Enter query conditions to filter': 'Introduce las condiciones para filtrar',
+  'Search with filters': 'Introduce las condiciones para filtrar',
   'Error Tips': 'Consejos de error',
   event: 'evento',
   'Event metadata': 'Metadatos de eventos',
@@ -157,7 +157,7 @@ module.exports = {
   'Last Updated Time': 'Última hora actualizada',
   'Latest Version': 'Última versión',
   'Learn more': 'Aprende más',
-  'Left Quota': 'Cuota restante',
+  'Remaining Quota': 'Cuota restante',
   level: 'nivel',
   Level: 'Nivel',
   List: 'Lista',
@@ -184,6 +184,8 @@ module.exports = {
   'Multi-cluster Deployment': 'Despliegue de multi-cluster',
   Name: 'Nombre',
   name: 'nombre',
+  'Name validation failed':
+    'Evite de crear nombre con el kube- del prefijo, puesto que es reservado para los namespaces del sistema de Kubernetes',
   'Name exists': 'Nombre existe',
   NanoSeconds: 'NanoSeconds',
   New: 'Nuevo',
@@ -234,8 +236,7 @@ module.exports = {
   'Platform URL': 'URL de plataforma',
   'Platform Version': 'Versión de plataforma',
   'Platform-level Access Control': 'Control de acceso a nivel de plataforma',
-  'Please input a keyword to filter':
-    'Introduce una palabra clave para filtrar',
+  'Filter by keyword': 'Introduce una palabra clave para filtrar',
   'Search by keyword': 'Introduce una palabra clave para buscar',
   'Search by name': 'Introduce un nombre para buscar',
   'Please input name': 'Introduce el nombre',
@@ -356,6 +357,7 @@ module.exports = {
   'Updated Time': 'Tiempo de actualización',
   updating: 'actualización',
   Updating: 'Actualización',
+  Upgrading: 'Upgrading',
   Upstream: 'Upstream',
   Used: 'En uso',
   'User Guides': 'Guías de usuario',
@@ -409,9 +411,6 @@ module.exports = {
   DELETE_RESOURCE_TITLE: 'Advertencia',
   DELETE_RESOURCE_TIP:
     '¿Está seguro de eliminar el recurso <strong>{resource}</strong> ? El recurso no se podrá recuperar después de eliminarlo.',
-  DESTROY_TITLE: '¿Seguro que deseas destruirlo?',
-  DESTROY_TIP:
-    '¿Estás seguro de que deseas destruir el {type} <strong>{resource}</strong> ?',
   LABEL_FORMAT_DESC:
     'La label tiene un máximo de 63 carácteres para clave y valor, la clave está limitada a 253 carácteres si contiene un nombre de dominio. Solo puedes contener letras mayúsculas y minúsculas, números, guiones ("-"), guiones bajos (_) y puntos (.), Y debe comenzar y terminar con un número o letras.',
   add_: 'Añadir',
@@ -508,8 +507,6 @@ module.exports = {
     'Una herramienta de búsqueda de auditoría multidimensional para espacios de trabajo, proyectos y recursos.',
   FILE_OVERSIZED_TIP: '¡El archivo cargado debe ser inferior a 2M!',
   MULTI_CLUSTER_TIP: 'El recurso se implementa en varios grupos.',
-  HISTORY_DESC:
-    'Cuando trabajes en múltiples áreas de trabajo o proyectos, tu navegador web registrará la última ruta que visitaste. Puedes verificar tu historial con F1, Win + K o Command + K, que te ayudará a cambiar rápidamente entre los recursos a los que accedes.',
   NO_HISTORY_TITLE:
     'Tu navegador web no ha registrado ningún historial de acceso a clústeres o espacios de trabajo.',
   NO_HISTORY_DESC:

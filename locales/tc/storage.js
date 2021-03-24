@@ -62,7 +62,7 @@ module.exports = {
   'The volume name exists': '儲存卷名稱已使用',
 
   'Used Capacity': '已分配儲存容量',
-  'Avail Capacity': '剩餘儲存容量',
+  'Available Capacity': '剩餘儲存容量',
 
   PersistentVolumes: '持久化儲存卷',
 
@@ -101,7 +101,7 @@ module.exports = {
     '儲存類型記錄管理員所提供的某類儲存的配置資訊，創建特定類型的儲存卷之前必須已配置相應的儲存類型。',
 
   STORAGE_CLASS_SET_DEFAULT_DESC:
-    '設置為預設儲存類型後，如果没有特殊指定，系統將預設創建該類型的儲存卷。一個 Kubernetes 集群中僅允許設置一個預設儲存類型',
+    '設置為預設儲存類型後，如果沒有特殊指定，系統將預設創建該類型的儲存卷。一個 Kubernetes 集群中僅允許設置一個預設儲存類型',
 
   PROVISIONER_DESC: '提供後端儲存',
 
@@ -164,7 +164,7 @@ module.exports = {
   CREATE_VOLUME_WITH_SNAPSHOT: '基於快照創建儲存卷',
 
   'Create Snapshot': '創建快照',
-  'Volume Clone': '儲存卷克隆',
+  'Clone Volume': '儲存卷克隆',
   'Support Volume Snapshot': '支持儲存卷快照',
 
   VOLUME_SNAPSHOT_STATUS_CREATING: '創建中',

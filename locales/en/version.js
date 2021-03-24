@@ -26,7 +26,6 @@ module.exports = {
   'Audit Records': 'Audit Records',
   business: 'business',
   'Cancel Review': 'Cancel Review',
-  ceasing: 'ceasing',
   creating: 'creating',
   'Delete Version': 'Delete Version',
   deleting: 'deleting',
@@ -63,7 +62,7 @@ module.exports = {
   technical: 'technical',
   'Test Steps': 'Test Steps',
   'Version Management': 'Version Management',
-  'Version update info': 'Version update info',
+  'Version Update Info': 'Version Update Info',
   Versions: 'Versions',
   'View in Store': 'View in Store',
   Working: 'Working',
@@ -120,10 +119,6 @@ module.exports = {
   VERSION_SUBMIT_NOTE:
     'Please make sure your app has passed the basic function tests shown below before you submit it for review.',
   VERSION_SUBMIT_DOC: 'For a more comprehensive test manual, see ',
-  VERSION_NUMBER_DESC:
-    'The important identification of the version. It can only contain numbers, decimal points and brackets ("[]"), and must start with a number and contain decimal points.',
-  VERSION_NUMBER_ERROR_NOTE:
-    'Incorrect version number format. It can only contain numbers, decimal points and brackets ("[]"), and must start with a number and contain decimal points.',
 
   UPDATE_LOG_DESC: 'Used to describe the details of this update.',
 }

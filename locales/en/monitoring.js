@@ -32,7 +32,7 @@ module.exports = {
   'Cluster Resources Usage': 'Cluster Resources Usage',
   'Cluster Status': 'Cluster Status',
   'Cluster Status Monitoring': 'Cluster Status Monitoring',
-  'Components Status': 'Components Status',
+  'Component Status': 'Component Status',
   'Controller Manager': 'Controller Manager',
   'Cool Color': 'Cool Color',
   'Custom Monitoring': 'Custom Monitoring',
@@ -62,8 +62,8 @@ module.exports = {
   'Physical Resources': 'Physical Resources',
   'Physical Resources Monitoring': 'Physical Resources Monitoring',
   'Physical Resources Usage': 'Physical Resources Usage',
-  'Projects Change Trend': 'Projects Change Trend',
-  'Projects Count': 'Projects Count',
+  'Projects Change Trend': 'Project Change Trend',
+  'Projects Count': 'Project Count',
   'Proposal Apply Rate': 'Proposal Apply Rate',
   'Proposal Commit Rate': 'Proposal Commit Rate',
   'Proposal Failure Rate': 'Proposal Failure Rate',
@@ -133,9 +133,9 @@ module.exports = {
 
   CustomMonitorDashboards: 'Custom Monitoring Dashboards',
   CUSTOMMONITORDASHBOARD_DESC:
-    'Users can define their application monitoring dashboards according to their own needs.',
+    'Users can define their app monitoring dashboards as needed.',
   CUSTOMMONITORDASHBOARD_CREATE_DESC:
-    'Users can define their application monitoring dashboards according to their own needs.',
+    'Users can define their app monitoring dashboards as needed.',
 
   ADD_MONITOR_ITEM: 'Add Monitoring Item',
   ADD_MONITOR_ROW: 'Add Monitoring Group',

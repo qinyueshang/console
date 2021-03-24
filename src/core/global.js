@@ -377,7 +377,7 @@ export default class GlobalValue {
   }
 
   get enableAppStore() {
-    return this.hasKSModule('openpitrix')
+    return this.hasKSModule('openpitrix.appstore')
   }
 
   get isPlatformAdmin() {
@@ -389,14 +389,14 @@ export default class GlobalValue {
   }
 
   hasKSModule(module) {
-    return get(globals, `ksConfig.${module}`)
+    return get(globals, `ksConfig["${module}"]`)
   }
 
   hasClusterModule(cluster, module) {
     if (!this.isMultiCluster) {
       return this.hasKSModule(module)
     }
-    return get(globals, `clusterConfig.${cluster}.${module}`)
+    return get(globals, `clusterConfig.${cluster}["${module}"]`)
   }
 
   cacheHistory(url, obj) {

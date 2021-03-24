@@ -31,7 +31,7 @@ import IPPoolStore from 'stores/network/ippool'
 @withList({
   store: new IPPoolStore(),
   module: 'ippools',
-  name: 'IP Pool',
+  name: 'Pod IP Pool',
 })
 export default class IPPools extends React.Component {
   get tips() {
@@ -44,7 +44,7 @@ export default class IPPools extends React.Component {
   }
 
   get itemActions() {
-    const { trigger } = this.props
+    const { trigger, name } = this.props
     return [
       {
         key: 'edit',
@@ -84,7 +84,7 @@ export default class IPPools extends React.Component {
         action: 'delete',
         onClick: item =>
           trigger('resource.delete', {
-            type: t(this.name),
+            type: t(name),
             detail: item,
           }),
       },
@@ -99,6 +99,7 @@ export default class IPPools extends React.Component {
         dataIndex: 'name',
         sorter: true,
         sortOrder: getSortOrder('name'),
+        width: '40%',
         render: (name, record) => (
           <Avatar
             icon={ICON_TYPES[module]}
@@ -110,7 +111,7 @@ export default class IPPools extends React.Component {
         ),
       },
       {
-        title: t('IP/Mask'),
+        title: t('IP/Mask Bit'),
         dataIndex: 'cidr',
       },
       {

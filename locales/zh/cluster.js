@@ -34,7 +34,6 @@ module.exports = {
   'Storage Management': '存储管理',
   'Cluster Settings': '集群设置',
   Snapshots: '存储卷快照',
-  'IP Ranges': 'IP 地址范围',
   'Network Policies': '网络策略',
   'Network Topology': '网络拓扑',
   'Cluster Visibility': '集群可见性',
@@ -45,8 +44,8 @@ module.exports = {
 
   'Host Cluster': 'Host 集群',
   'Host Clusters': 'Host 集群',
-  'Member Cluster': '成员集群',
-  'Member Clusters': '成员集群',
+  'Member Cluster': 'Member 集群',
+  'Member Clusters': 'Member 集群',
 
   'Kubernetes Version': 'Kubernetes 版本',
 
@@ -60,6 +59,8 @@ module.exports = {
   'Edit Visibility': '编辑可见范围',
 
   'Go back': '返回上一步',
+
+  Provider: '服务商',
 
   'Choose a provider': '选择服务商',
 
@@ -120,7 +121,7 @@ module.exports = {
 
   'Please add at least one cluster node': '请至少添加一个集群节点',
   "Please specify the node's roles": '请指定节点的角色',
-  'Please input the ip address': '请输入 IP 地址',
+  'Please input the IP address': '请输入 IP 地址',
 
   'Add node to the cluster': '添加节点到集群中',
 
@@ -145,7 +146,7 @@ module.exports = {
 
   'KubeSphere Settings': 'KubeSphere 设置',
 
-  'Invalid ip address': 'IP 地址不合法',
+  'Invalid IP address': 'IP 地址不合法',
 
   'Cluster Creation Progress': '集群创建进度',
 
@@ -267,7 +268,7 @@ module.exports = {
 
   KUBE_PODS_CIDR_DESC:
     '在节点上运行的 Pod 从节点的 Pod CIDR 范围分配 IP 地址。',
-  KUBE_SERVICE_CIDR_DESC: '分配给服务的 IP 地址范围',
+  KUBE_SERVICE_CIDR_DESC: '分配给服务的 IP 池',
 
   CLUSTER_COMPONENTS_DESC: '对集群的服务组件进行定制',
 
@@ -297,8 +298,11 @@ module.exports = {
   FETCHING_LOGS: `正在获取日志...`,
 
   MASTER_NODE_COUNT_TIP: 'Master 节点数量需要为 1 或 3',
-  WORKER_NODE_COUNT_TIP: 'Worker 节点数量至少为1',
+  WORKER_NODE_COUNT_TIP: 'Worker 节点数量至少为 1',
 
   CLUSTER_CREATION_PROGRESS_TIP:
     '根据所创建的集群规模和网络连接的不同，创建完成整个集群大概需要 30 ~ 60 分钟。',
+
+  CLUSTER_REGION: '集群地区',
+  CLUSTER_ZONE: '集群区域',
 }

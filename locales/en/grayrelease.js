@@ -27,7 +27,7 @@ module.exports = {
   'Create Job': 'Create Job',
   'Custom Header': 'Custom Header',
   'Deploy sample application': 'Deploy sample application',
-  'Deploy Sample Application': 'Deploy Sample Application',
+  'Deploy Sample App': 'Deploy Sample App',
   'Edit Grayscale Release Job': 'Edit Grayscale Release Job',
   'Exact Match': 'Exact Match',
   'Forward by request content': 'Forward by request content',
@@ -58,8 +58,8 @@ module.exports = {
   'Please select a grayscale release component':
     'Please select a grayscale release component',
   'Policy Config': 'Policy Config',
-  'Port protocol is not HTTP, cannot publish policy by request content':
-    'Port protocol is not HTTP, cannot publish policy by request content',
+  POLICY_REQUEST_CONTENT_TIP:
+    'Port protocol is not HTTP, HTTP2 or gRPC, cannot publish policy by request content',
   'Prefix Match': 'Prefix Match',
   'Real-time traffic distribution': 'Real-time traffic distribution',
   'Real-time traffic ratio': 'Real-time traffic ratio',

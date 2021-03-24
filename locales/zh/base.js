@@ -95,6 +95,7 @@ module.exports = {
   Warning: '异常',
   Draining: '疏散中',
   Pending: '等待中',
+  Upgrading: '升级中',
   Stopped: '已停止',
   Disabled: '已停用',
   'Not Enabled': '未启用',
@@ -282,9 +283,11 @@ module.exports = {
   'Please select project': '请选择项目',
   'Please select version': '请选择版本',
   'Please input password': '请输入密码',
-  'Please input a keyword to filter': '请输入关键字过滤',
+  'Filter by keyword': '请输入关键字过滤',
   'Search by keyword': '请输入关键字进行查找',
   'Search by name': '请输入名称进行查找',
+  'Name validation failed':
+    '避免使用前缀为 kube- 的名称，因为它是为 Kubernetes 系统命名空间保留的',
   'Name exists': '名称已存在',
   'Duplicate keys': '无法添加重复的 key',
   'Empty keys': '无法添加空的 key',
@@ -310,11 +313,11 @@ module.exports = {
 
   'No Limit': '无限制',
   Quota: '配额',
-  'Left Quota': '剩余配额',
+  'Remaining Quota': '剩余配额',
 
   TOTAL_ITEMS: '共 {num} 个条目',
 
-  'Enter query conditions to filter': '输入查询条件进行过滤',
+  'Search with filters': '输入查询条件进行过滤',
 
   DELETE_TITLE: '{type}删除确认?',
   DELETE_TIP:
@@ -330,9 +333,6 @@ module.exports = {
   REMOVE_MEMBER_TIP: '确定移除成员 <strong>{resource}</strong> ?',
 
   REMOVE_GROUP_TIP: '确定移除组织 <strong>{resource}</strong> ?',
-
-  DESTROY_TITLE: '确认销毁?',
-  DESTROY_TIP: '确定销毁{type} <strong>{resource}</strong> ?',
 
   'Error Tips': '错误提示',
 
@@ -390,7 +390,7 @@ module.exports = {
   platform: '平台',
   Reselect: '重新选择',
   body: '内容',
-  author: '作者',
+  Author: '作者',
   Size: '大小',
   password: '密码',
   None: '无',
@@ -528,8 +528,6 @@ module.exports = {
   'User Guides': '用户指南',
   'Quick Support': '快速获取帮助',
   'Developer Community': '开发者社区',
-  HISTORY_DESC:
-    '当您在多个企业空间或者项目下进行协同工作时，浏览器会记录下您最近访问的路径，您可以通过 F1 / (Win + K) / (Command + K) 查看历史记录，来快速切换您的访问资源。',
   NO_HISTORY_TITLE: '浏览器暂未收录到您对集群或者企业空间等区域的访问记录',
   NO_HISTORY_DESC: '您可以尝试对企业空间或者集群、项目等资源的访问',
   USER_GUIDES_DESC: '最详尽的 KubeSphere 用户指南文档',

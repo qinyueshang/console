@@ -93,6 +93,7 @@ module.exports = {
   'Current Utilization': 'Utilización actual',
   'Deployment Location': 'Ubicación de despliegue',
   'Deployment Mode': 'Modo de despliegue',
+  DEPLOYMENT_MODE_DESC: 'You can specify rules for pod scheduling',
   DeploymentPaused: 'Despliegue Pausado',
   DeploymentResumed: 'Despliegue Reanudado',
   'Desired number of nodes scheduled': 'Número deseado de nodos programado',
@@ -278,11 +279,11 @@ module.exports = {
   'Resource Info': 'Información de recursos',
   'Resource Limit': 'Límite de recursos',
   'Resource Limits': 'Límites de recursos',
-  'Resource limits left quota': 'Límite de recursos, cuota restante',
+  'Resource limits remaining quota': 'Límite de recursos, cuota restante',
   'Resource Name': 'Nombre del recurso',
   'Resource Request': 'Solicitud de recursos',
   'Resource Requests': 'Solicitudes de recursos',
-  'Resource requests left quota': 'Solicitudes de recursos dejaron cuota',
+  'Resource requests remaining quota': 'Solicitudes de recursos dejaron cuota',
   'Resource Status': 'Estado del recurso',
   'Restart Count': 'Reiniciar contadores',
   'Restart Policy': 'Política de reinicio',
@@ -347,6 +348,14 @@ module.exports = {
     '¿Qué es la recopilación de registro de disco?',
   'Worker Container': 'Contenedor de trabajo',
   Workload: 'Carga de trabajo',
+
+  'Not Limited': 'Not Limited',
+  Cost: 'Cost',
+  'Project Remaining Quota': 'Project Remaining Quota',
+  'Workspace Remaining Quota': 'Workspace Remaining Quota',
+  QUOTA_OVERCOST_TIP:
+    'The current resource usage has exceeded the remaining quota',
+
   WORKLOAD_REASON_DEPLOYMENTPAUSED: 'WORKLOAD_REASON_DEPLOYMENTPAUSED',
   WORKLOAD_REASON_DEPLOYMENTRESUMED: 'WORKLOAD_REASON_DEPLOYMENTRESUMED',
   WORKLOAD_REASON_FAILEDCREATE: 'WORKLOAD_REASON_FAILEDCREATE',
@@ -660,4 +669,8 @@ module.exports = {
   DEPLOY_PLACEMENT_TIP_TITLE: 'What is Deployment Location?',
   DEPLOY_PLACEMENT_TIP_VALUE:
     'You can deploy Pods on different clusters and define the number of replicas deployed. The Federation Controller Manager schedules Pods on different clusters in a unified way and synchronizes status.',
+  IGNORE_CERT_DESC:
+    'A certificate error was found, do you want to ignore the certificate verification',
+  IGNORE_CERT_WARN_DESC:
+    'Ignoring the verification certificate may cause the account password to be disclosed. ',
 }

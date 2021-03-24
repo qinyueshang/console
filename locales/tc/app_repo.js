@@ -40,7 +40,7 @@ module.exports = {
   'HTTP access denied': 'HTTP 地址無法訪問',
   'Invalid HTTPS Scheme': '錯誤的 HTTPS 類型協定',
   'Invalid type': '無效的類型',
-  'Invalid Providers': '錯誤的 Providers 参數',
+  'Invalid Providers': '錯誤的 Providers 參數',
   'Invalid Repo URL': '不是有效的 Repo 地址',
   'Invalid S3 Scheme': '錯誤的 S3 類型協定',
   'Invalid URL': '無效的 URL',
@@ -50,7 +50,7 @@ module.exports = {
     '請輸入 Access key ID 和 Secret access key',
 
   'App Repos': '應用倉庫',
-  'Add Repo': '添加倉庫',
+  'Add Repository': '添加倉庫',
   'Index Repo': '同步倉庫',
 
   HOW_TO_USE_APP_REPO_Q: '如何使用應用倉庫？',

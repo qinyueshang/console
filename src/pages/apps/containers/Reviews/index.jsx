@@ -18,7 +18,7 @@
 
 import React from 'react'
 
-import { get, find, capitalize, values } from 'lodash'
+import { find, capitalize } from 'lodash'
 
 import { Status } from 'components/Base'
 import Table from 'components/Tables/List'
@@ -37,7 +37,7 @@ import styles from './index.scss'
   store: new ReviewStore(),
   module: 'apps',
   name: 'App Reviews',
-  rowKey: 'app_id',
+  rowKey: 'version_id',
 })
 export default class Reviews extends React.Component {
   get type() {
@@ -95,7 +95,7 @@ export default class Reviews extends React.Component {
       type: this.type,
       success: this.getData,
       onReject: () =>
-        this.props.trigger('openpitrix.template.review', {
+        this.props.trigger('openpitrix.template.reject', {
           detail: item,
           type: this.type,
           success: this.getData,
@@ -150,23 +150,25 @@ export default class Reviews extends React.Component {
     },
     {
       title: t('Operator'),
-      dataIndex: 'phase',
+      dataIndex: 'reviewer',
       isHideable: true,
       width: '10%',
-      render: phase => get(values(phase), '[0].operator', '-'),
     },
     {
       title: t('Review Status'),
       dataIndex: 'status',
       isHideable: true,
       width: '15%',
-      render: status => (
-        <Status
-          className={styles.status}
-          type={transferReviewStatus(status)}
-          name={t(capitalize(transferReviewStatus(status)))}
-        />
-      ),
+      render: status => {
+        const transStatus = transferReviewStatus(status)
+        return (
+          <Status
+            className={styles.status}
+            type={transStatus}
+            name={t(capitalize(transStatus))}
+          />
+        )
+      },
     },
     {
       title: t('Updated Time'),

@@ -17,17 +17,18 @@
  */
 
 import React from 'react'
-import { Link } from 'react-router-dom'
+
 import { toJS } from 'mobx'
-import { cloneDeep, get, omit } from 'lodash'
+import { cloneDeep, get, isEmpty, omit } from 'lodash'
 
-import { Button } from '@kube-design/components'
-
+import { Button, Notify } from '@kube-design/components'
+import { Avatar } from 'components/Base'
 import Banner from 'components/Cards/Banner'
 import PipelineStore from 'stores/devops/pipelines'
 import Table from 'components/Tables/List'
 import Empty from 'components/Tables/Base/Empty'
 import Health from 'devops/components/Health'
+import Status from 'devops/components/Status'
 
 import { withDevOpsList, ListPage } from 'components/HOCs/withList'
 
@@ -48,6 +49,7 @@ export default class PipelinesList extends React.Component {
       enable_timer_trigger: false,
       enable_discarder: true,
     }
+    this.refreshTimer = setInterval(() => this.refreshHandler(), 4000)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,6 +59,35 @@ export default class PipelinesList extends React.Component {
     if (params.devops !== nextParams.devops) {
       this.getData(nextParams)
     }
+  }
+
+  componentDidUpdate() {
+    if (this.refreshTimer === null && this.isRuning) {
+      clearInterval(this.refreshTimer)
+      this.refreshTimer = setInterval(() => this.refreshHandler(), 4000)
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.refreshTimer)
+    this.unsubscribe && this.unsubscribe()
+  }
+
+  refreshHandler = () => {
+    if (this.isRuning) {
+      this.getData()
+    } else {
+      clearInterval(this.refreshTimer)
+      this.refreshTimer = null
+    }
+  }
+
+  get isRuning() {
+    const { data } = toJS(this.props.store.list)
+    const runingData = data.filter(
+      item => item.status !== 'failed' && item.status !== 'successful'
+    )
+    return !isEmpty(runingData)
   }
 
   get enabledActions() {
@@ -95,7 +126,7 @@ export default class PipelinesList extends React.Component {
   }
 
   get itemActions() {
-    const { trigger } = this.props
+    const { trigger, name } = this.props
 
     return [
       {
@@ -143,7 +174,7 @@ export default class PipelinesList extends React.Component {
         action: 'delete',
         onClick: record => {
           trigger('resource.delete', {
-            type: t('User'),
+            type: t(name),
             resource: record.name,
             detail: {
               name: record.name,
@@ -269,36 +300,50 @@ export default class PipelinesList extends React.Component {
     })
   }
 
+  getPipelineStatus = status => {
+    const CONFIG = {
+      failed: { type: 'failure', label: t('Failure') },
+      pending: { type: 'running', label: t('Running') },
+      working: { type: 'running', label: t('Running') },
+      successful: { type: 'success', label: t('Success') },
+    }
+
+    return { ...CONFIG[status] }
+  }
+
   getColumns = () => [
     {
       title: t('Name'),
       dataIndex: 'name',
-      width: '20%',
+      width: '15%',
       render: (name, record) => {
         const url = `/${this.workspace}/clusters/${this.cluster}/devops/${
           this.devops
         }/pipelines/${encodeURIComponent(record.name)}${
           record.numberOfFailingBranches !== undefined ? '/activity' : ''
         }`
-        return (
-          <Link className="item-name" to={url}>
-            {name}
-          </Link>
-        )
+        return <Avatar to={this.isRuning ? null : url} title={name} />
       },
     },
-
+    {
+      title: t('Sync Status'),
+      width: '20%',
+      key: 'status',
+      render: record => {
+        return <Status {...this.getPipelineStatus(record.status)} />
+      },
+    },
     {
       title: t('WeatherScore'),
       dataIndex: 'weatherScore',
-      width: '30%',
+      width: '20%',
       isHideable: true,
       render: weatherScore => <Health score={weatherScore} />,
     },
     {
       title: t('Branch'),
       dataIndex: 'totalNumberOfBranches',
-      width: '25%',
+      width: '20%',
       isHideable: true,
       render: totalNumberOfBranches =>
         totalNumberOfBranches === undefined ? '-' : totalNumberOfBranches,
@@ -306,14 +351,42 @@ export default class PipelinesList extends React.Component {
     {
       title: t('PullRequest'),
       dataIndex: 'totalNumberOfPullRequests',
+      width: '20%',
       isHideable: true,
       render: totalNumberOfPullRequests =>
         totalNumberOfPullRequests === undefined
           ? '-'
           : totalNumberOfPullRequests,
-      width: '20%',
     },
   ]
+
+  handleMultiBatchRun = () => {
+    const { selectedRowKeys, data } = toJS(this.props.store.list)
+
+    const multiData = selectedRowKeys.filter(item => {
+      const multi = data.find(_item => _item.name === item)
+      return multi.totalNumberOfBranches
+    })
+
+    const isMulti = !isEmpty(multiData)
+
+    if (isMulti) {
+      Notify.error(t('BATCH_RUN_DESC'))
+      return false
+    }
+
+    this.props.trigger('pipeline.batch.run', {
+      type: t('Pipeline'),
+      rowKey: 'name',
+      devops: this.devops,
+      cluster: this.cluster,
+      success: () => {
+        setTimeout(() => {
+          this.handleFetch()
+        }, 1000)
+      },
+    })
+  }
 
   renderContent() {
     const {
@@ -351,7 +424,6 @@ export default class PipelinesList extends React.Component {
     const pagination = { total, page, limit }
 
     const defaultTableProps = {
-      rowKey: 'name',
       hideCustom: false,
       onSelectRowKeys: this.props.store.setSelectRowKeys,
       selectedRowKeys,
@@ -361,19 +433,7 @@ export default class PipelinesList extends React.Component {
           type: 'primary',
           text: t('Run'),
           action: 'delete',
-          onClick: () => {
-            this.props.trigger('pipeline.batch.run', {
-              type: t('Pipeline'),
-              rowKey: 'name',
-              devops: this.devops,
-              cluster: this.cluster,
-              success: () => {
-                setTimeout(() => {
-                  this.handleFetch()
-                }, 1000)
-              },
-            })
-          },
+          onClick: this.handleMultiBatchRun,
         },
         {
           key: 'delete',
@@ -398,6 +458,7 @@ export default class PipelinesList extends React.Component {
 
     return (
       <Table
+        rowKey="name"
         data={data}
         columns={this.getColumns()}
         filters={omitFilters}

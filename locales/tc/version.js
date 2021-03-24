@@ -63,7 +63,7 @@ module.exports = {
     '部署檔案模板目錄，模板填入 values.yaml 中相應值，生成最終的 Kubernetes 配置檔案',
   NOTES_FILE_DESC: '使用指南',
 
-  'Version update info': '版本更新說明',
+  'Version Update Info': '版本更新說明',
   'No version info': '暫無更新說明',
 
   developer: '開發者',
@@ -98,14 +98,13 @@ module.exports = {
   'Pending-review': '審核中',
   creating: '創建中',
   deleting: '刪除中',
-  ceasing: '釋放中',
 
   'Test Steps': '測試步驟',
   VERSION_SUBMIT_TEST_STEPS:
     '1. 所有依賴的 Chart 已經分别提交<br/>' +
     '2. 可以成功通過静態檢查 (helm lint) <br/>' +
     '3. 可以用預設值成功啟動應用 (helm install)：所有 Pod 是 running 狀態，所有服務 (service) 都至少有一個 endpoint<br/>' +
-    '4. 使用的鏡像没有安全漏洞 <br/>' +
+    '4. 使用的鏡像沒有安全漏洞 <br/>' +
     '5. 支持升級 <br/>' +
     '6. 支持自定義應用配置<br/>' +
     '7. 不要使用 Kubernetes 的 alpha 功能<br/>' +
@@ -115,10 +114,6 @@ module.exports = {
     '在正式提交審核之前，請確認你的應用已經通過了以下基本功能的測試',
   VERSION_SUBMIT_DOC: '更全面的測試手冊請參看',
   'Develop and test guide': '《開發者測試指南》',
-  VERSION_NUMBER_DESC:
-    '應用版本的重要標識，只能包含數字、小數點及中括號("[]")，並且必需以數字開頭並包含小數點',
-  VERSION_NUMBER_ERROR_NOTE:
-    '版本號格式錯誤，只能包含數字、小數點及中括號("[]")，並且必需以數字開頭並包含小數點',
   UPDATE_LOG_DESC: '用於詳細描述此次更新的具體内容',
 
   'Wrong version number format': '版本號的格式錯誤',

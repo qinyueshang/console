@@ -18,41 +18,36 @@
 
 const fs = require('fs')
 const path = require('path')
+const RawSource = require('webpack-sources/lib/RawSource')
+
+const isDev = process.env.NODE_ENV === 'development'
 
 class LocalePlugin {
-  constructor(options = {}) {
-    this.options = {
-      ...options,
-    }
-  }
-
   apply(compiler) {
-    compiler.hooks.emit.tapPromise('LocalePlugin', compilation => {
-      // return a Promise that resolves when we are done...
-      return new Promise((resolve, reject) => {
-        if (this.options.locales) {
-          const dir = fs.readdirSync(path.join(__dirname, this.options.locales))
-          dir.forEach(lang => {
-            const files = fs.readdirSync(
-              path.join(__dirname, this.options.locales, lang)
+    compiler.hooks.emit.tap('LocalePlugin', compilation => {
+      const assets = compilation.getAssets()
+      assets.forEach(asset => {
+        let content = asset.source.source()
+        try {
+          const obj = eval(content)
+          if (obj.default) {
+            content = JSON.stringify(
+              obj.default.reduce((prev, cur) => ({ ...prev, ...cur }), {})
             )
-            let data = {}
-            files.forEach(file => {
-              const filedata = require(path.join(
-                __dirname,
-                this.options.locales,
-                lang,
-                file
-              ))
-              data = { ...data, ...filedata }
-            })
+          }
+
+          if (isDev) {
             if (!fs.existsSync(compiler.outputPath)) {
               fs.mkdirSync(compiler.outputPath)
             }
-            fs.writeFileSync(path.join(compiler.outputPath, `locale-${lang}.json`), JSON.stringify(data))
-          })
-        }
-        resolve()
+            fs.writeFileSync(
+              path.join(compiler.outputPath, asset.name),
+              content
+            )
+          }
+        } catch (error) {}
+
+        compilation.updateAsset(asset.name, new RawSource(content))
       })
     })
   }

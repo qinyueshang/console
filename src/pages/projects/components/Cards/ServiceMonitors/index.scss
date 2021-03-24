@@ -9,7 +9,6 @@
 
 .item {
   display: flex;
-  position: relative;
   padding: 12px;
   margin-bottom: 8px;
   background-color: $white;
@@ -22,9 +21,9 @@
 
   & > div {
     margin-right: 12px;
-    min-width: 20%;
+    min-width: 12%;
     &:first-child {
-      min-width: 30%;
+      min-width: 35%;
     }
   }
 }

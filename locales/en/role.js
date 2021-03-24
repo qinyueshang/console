@@ -43,7 +43,7 @@ module.exports = {
   'Cluster Role': 'Cluster Role',
   'Cluster Roles Management': 'Cluster Roles Management',
   'Cluster Roles View': 'Cluster Roles View',
-  'Clusters Management': 'Clusters Management',
+  'Clusters Management': 'Cluster Management',
   'Clusters View': 'Clusters View',
   'Components Management': 'Components Management',
   'CRD Management': 'CRD Management',
@@ -335,7 +335,7 @@ module.exports = {
   ROLE_PLATFORM_ADMIN:
     'Platform administrator who can manage all resources in the platform.',
   ROLE_PLATFORM_REGULAR:
-    'Normal user in the platform who has no access to any resources before joining the workspace or cluster.',
+    'Normal user in the platform who has no access to any resources before joining a workspace or cluster.',
 
   ROLE_CLUSTER_ADMIN:
     'Allows cluster-admin access to perform any action on any resource. It gives full control over all resources in the cluster and in all namespaces.',
@@ -373,4 +373,7 @@ module.exports = {
     'Normal member in a DevOps project who can create pipeline credentials in the DevOps project.',
 
   NO_AUTHORIZED_USERS: 'Currently there is no authorized user for this role.',
+
+  RULE_RELATED_WITH:
+    'The current permission cannot be removed as {resource} is dependent on it.',
 }

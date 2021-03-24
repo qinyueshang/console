@@ -65,7 +65,7 @@ export default class VersionItem extends React.PureComponent {
   }
 
   static defaultProps = {
-    isAdmin: true,
+    isAdmin: false,
     appDetail: {},
     detail: {},
     params: {},
@@ -140,7 +140,7 @@ export default class VersionItem extends React.PureComponent {
     this.store.delete({ app_id, version_id }).then(() => {
       this.hideHandleModal()
       Notify.success({
-        content: `${t('Delete Successfully')}!`,
+        content: `${t('Delete Successfully')}`,
       })
       this.store.fetchList({ app_id })
     })
@@ -160,7 +160,7 @@ export default class VersionItem extends React.PureComponent {
       const type = HANDLE_TYPE_TO_SHOW[handleType] || handleType
       this.hideHandleModal()
       Notify.success({
-        content: `${t(`${capitalize(type)} Successfully`)}!`,
+        content: `${t(`${capitalize(type)} Successfully`)}`,
       })
       const status = isAdmin ? STORE_QUERY_STATUS : this.store.defaultStatus
 
@@ -231,7 +231,7 @@ export default class VersionItem extends React.PureComponent {
         )}
         {!isAdmin && (
           <Button onClick={this.showDeploy} type="default">
-            {t('Test Deploy')}
+            {t('Test Deployment')}
           </Button>
         )}
         {handleType && (
@@ -244,7 +244,7 @@ export default class VersionItem extends React.PureComponent {
   }
 
   renderExtraContent() {
-    const { detail, appDetail } = this.props
+    const { detail, appDetail, clusters } = this.props
     const { tab } = this.state
 
     return (
@@ -262,10 +262,12 @@ export default class VersionItem extends React.PureComponent {
           </TabPanel>
           <TabPanel label={t('Deployed Instances')} name="deployInstances">
             <InstanceList
+              title={t('Deployed Instances')}
+              className={styles.instances}
               appId={appDetail.app_id}
               versionId={detail.version_id}
-              hideHeader
-              hideFooter
+              workspace={appDetail.workspace}
+              clusters={clusters}
             />
           </TabPanel>
         </Tabs>

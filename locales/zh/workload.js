@@ -77,16 +77,24 @@ module.exports = {
   'HTTP Request': 'HTTP 请求',
   'Diff Settings': '差异化配置',
   'Deployment Mode': '部署模式',
+  'Custom Deployment Mode': '自定义部署模式',
+  'Add Deployment Mode': '添加部署模式',
+  DEPLOYMENT_MODE_DESC: '您可以为容器组调度指定规则',
   'Instance Status': '实例状态',
 
   'No Request': '不预留',
   'No Limit': '不限制',
+  'Not Limited': '未限制',
+  Cost: '占用',
+  'Project Remaining Quota': '项目剩余配额',
+  'Workspace Remaining Quota': '企业空间剩余配额',
+  QUOTA_OVERCOST_TIP: '当前资源占用已超过剩余配额',
 
   'Resource Request': '资源预留',
   'Resource Limit': '资源限制',
 
-  'Resource requests left quota': '资源预留剩余配额',
-  'Resource limits left quota': '资源限制剩余配额',
+  'Resource requests remaining quota': '资源预留剩余配额',
+  'Resource limits remaining quota': '资源限制剩余配额',
 
   'No resource limits': '无资源限制',
 
@@ -216,6 +224,11 @@ module.exports = {
   Argument: '参数',
   'Add argument': '添加参数',
   Protocols: '协议',
+  'Must match': '必须满足',
+  'Match as much as possible': '尽可能满足',
+  'Deploy with the Target': '与目标部署到一起',
+  'Deploy away from the Target': '远离目标部署',
+  'Please complete the policy': '请填写完整策略',
   'Session Affinity': '会话亲和性',
   'environment variables': '环境变量',
   'Add Environment Variable': '添加环境变量',
@@ -527,7 +540,11 @@ module.exports = {
 
   'Pod Default Deployment': '容器组默认部署',
   'Pod Decentralized Deployment': '容器组分散部署',
+  'Pod Soft Decentralized Deployment': '容器组软分散部署',
+  'Pod Hard Decentralized Deployment': '容器组硬分散部署',
   'Pod Aggregation Deployment': '容器组聚合部署',
+  'Pod Soft Aggregation Deployment': '容器组软聚合部署',
+  'Pod Hard Aggregation Deployment': '容器组硬聚合部署',
   'Pod replicas will be deployed on different nodes as much as possible.':
     '容器组副本将会尽量分散在不同的节点中',
   'Pod replicas will be deployed on the same node as much as possible.':
@@ -685,4 +702,6 @@ module.exports = {
   DEPLOY_PLACEMENT_TIP_TITLE: '什么是部署位置？',
   DEPLOY_PLACEMENT_TIP_VALUE:
     '可以将容器组部署在不同集群中，并对集群中部署的副本数量进行定义。不同集群中的容器组将由联邦集群控制器(Federation Controller Manager)进行统一的调度及状态同步。',
+  IGNORE_CERT_DESC: '发现证书错误，是否忽略证书验证并再次',
+  IGNORE_CERT_WARN_DESC: '忽略验证证书，可能会导致帐户密码被泄露。',
 }

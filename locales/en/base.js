@@ -21,7 +21,7 @@ module.exports = {
   About: 'About',
   'Access Control': 'Access Control',
   Account: 'Account',
-  active: 'active',
+  active: 'Active',
   Active: 'Active',
   Activity: 'Activity',
   Add: 'Add',
@@ -38,16 +38,16 @@ module.exports = {
   'Analysis Tools': 'Analysis Tools',
   'API Documents': 'API Documents',
   'App Templates': 'App Templates',
-  Application: 'Application',
+  Application: 'App',
   'Application Workloads': 'Application Workloads',
   Apply: 'Apply',
   'As of Date': 'As of Date',
   auditing: 'auditing',
   Auditing: 'Auditing',
   'Auditing Operating': 'Auditing Operating',
-  author: 'author',
+  Author: 'Author',
   'Back To List': 'Back To List',
-  'Basic Info': 'Basic Info',
+  'Basic Info': 'Basic Information',
   'Basic Information': 'Basic Information',
   body: 'body',
   Cancel: 'Cancel',
@@ -78,7 +78,7 @@ module.exports = {
   Creator: 'Creator',
   Current: 'Current',
   Custom: 'Custom',
-  'Custom Columns': 'Custom Columns',
+  'Custom Columns': 'Customize Columns',
   'Data Sources': 'Data Sources',
   Days: 'Days',
   'Default Value': 'Default Value',
@@ -116,7 +116,7 @@ module.exports = {
   Enable: 'Enable',
   Enabled: 'Enabled',
   'End Time': 'End Time',
-  'Enter query conditions to filter': 'Enter query conditions to filter',
+  'Search with filters': 'Search with filters',
   'Error Tips': 'Error Tips',
   event: 'event',
   'Event metadata': 'Event metadata',
@@ -156,7 +156,7 @@ module.exports = {
   'Last Updated Time': 'Last Updated Time',
   'Latest Version': 'Latest Version',
   'Learn more': 'Learn more',
-  'Left Quota': 'Left Quota',
+  'Remaining Quota': 'Remaining Quota',
   level: 'level',
   Level: 'Level',
   List: 'List',
@@ -183,6 +183,8 @@ module.exports = {
   'Multi-cluster Deployment': 'Multi-cluster Deployment',
   Name: 'Name',
   name: 'name',
+  'Name validation failed':
+    'Avoid creating name with prefix kube-, since it is reserved for Kubernetes system namespaces',
   'Name exists': 'Name exists',
   NanoSeconds: 'NanoSeconds',
   New: 'New',
@@ -227,21 +229,21 @@ module.exports = {
   Platform: 'Platform',
   platform: 'platform',
   'Platform Description': 'Platform Description',
-  'Platform Info': 'Platform Info',
+  'Platform Info': 'Platform Information',
   'Platform Running Status': 'Platform Running Status',
   'Platform Title': 'Platform Title',
   'Platform URL': 'Platform URL',
   'Platform Version': 'Platform Version',
   'Platform-level Access Control': 'Platform-level Access Control',
-  'Please input a keyword to filter': 'Please input a keyword to filter',
+  'Filter by keyword': 'Filter by keyword',
   'Search by keyword': 'Search by keyword',
   'Search by name': 'Search by name',
-  'Please input name': 'Please input name',
-  'Please input password': 'Please input password',
-  'Please input value': 'Please input value',
-  'Please select project': 'Please select project',
-  'Please select version': 'Please select version',
-  'Please select workspace': 'Please select workspace',
+  'Please input name': 'Please input a name',
+  'Please input password': 'Please input a password',
+  'Please input value': 'Please input a value',
+  'Please select project': 'Please select a project',
+  'Please select version': 'Please select a version',
+  'Please select workspace': 'Please select a workspace',
   Pod: 'Pod',
   'Pod Template': 'Pod Template',
   Pods: 'Pods',
@@ -354,6 +356,7 @@ module.exports = {
   'Updated Time': 'Updated Time',
   updating: 'updating',
   Updating: 'Updating',
+  Upgrading: 'Upgrading',
   Upstream: 'Upstream',
   Used: 'Used',
   'User Guides': 'User Guides',
@@ -391,28 +394,24 @@ module.exports = {
     'It can only contain lowercase letters, numbers and hyphens("-"), and must begin and end with a lowercase letter or a number. The maximum length of characters is set to 253.',
   NAME_TOO_LONG: 'The maximum length of characters is set to 63.',
   LONG_NAME_TOO_LONG: 'The maximum length of characters is set to 253.',
-  DESCRIPTION_DESC: 'Description is limited to 256 characters.',
+  DESCRIPTION_DESC: 'The description cannot exceed 256 characters.',
   PROJECT_DESC:
     'Projects will be grouped by their resources, which you can view and manage by project.',
   'MULTI-CLUSTER_PROJECT_CREATE_DESC':
     'Projects will be grouped by their resources, which you can view and manage by project.',
 
-  DELETE_TITLE: 'Sure to delete {type}?',
+  DELETE_TITLE: 'Delete {type}',
   DELETE_TIP:
-    'Are you sure about deleting the {type} <strong>{resource}</strong> ? {type} cannot be recovered after it is deleted.',
+    'Are you sure about deleting {type} <strong>{resource}</strong> ? {type} cannot be recovered after it is deleted.',
   DELETE_CONFIRM_TIP:
-    'Please enter the {type} name <strong>{resource}</strong> to make sure you understand the risks associated with the operation.',
+    'Please enter the {type} name <strong>{resource}</strong> to make sure you understand the risks associated with this operation.',
   DELETE_APP_RESOURCE_TIP:
     'Resource is managed by <strong>{app}</strong>, which may affect the normal use of this app if the resource is deleted. Please enter the {type} name <strong>{resource}</strong> to make sure you understand the risks associated with the operation.',
-  DELETE_CONFIRM_PLACEHOLDER: 'Please enter {resource}',
+  DELETE_CONFIRM_PLACEHOLDER: 'Please enter {resource}.',
 
   DELETE_RESOURCE_TITLE: 'Warning',
   DELETE_RESOURCE_TIP:
     'Are you sure about deleting the resource <strong>{resource}</strong> ? The resource cannot be recovered after it is deleted.',
-
-  DESTROY_TITLE: 'Sure to destroy ?',
-  DESTROY_TIP:
-    'Are you sure about destroying the {type} <strong>{resource}</strong> ?',
 
   LABEL_FORMAT_DESC:
     'The maximum number of characters of the tag for key and value is 63; key is limited to 253 characters if it contains a domain name. It can only contain upper and lower case letters, numbers, hyphens ("-"), underscores (_), and dots (.), and must begin and end with a number or letter.',
@@ -425,7 +424,7 @@ module.exports = {
     'Are you sure about removing the group <strong>{resource}</strong> ?',
 
   ALIAS_DESC:
-    'Alias can be composed of any character to help you better distinguish resources. The maximum length of characters is set to 63.',
+    'An alias can be composed of any character to help you better distinguish resources. The maximum length of characters is set to 63.',
 
   NOT_ENABLE: '{resource} is not enabled',
   NOT_AVAILABLE: 'No available {resource}',
@@ -445,7 +444,7 @@ module.exports = {
   MINUTE_AGO: '{count, plural, =1 {1 minute} other {# minutes}} ago',
   MINUTE_TIME: '{count, plural, =1 {1 minute} other {# minutes}}',
 
-  TOTAL_ITEMS: 'Total {num} items',
+  TOTAL_ITEMS: 'Total: {num}',
 
   EVENT_NORMAL: 'Normal',
   EVENT_WARNING: 'Warning',
@@ -527,7 +526,7 @@ module.exports = {
   EVENT_FROM: 'From',
 
   PLATFORM_INFO_DESC: 'View platform title, description and other information',
-  HOW_TO_MODIFY_PLATFORM_INFO: 'How to modify platform info?',
+  HOW_TO_MODIFY_PLATFORM_INFO: 'How to modify platform information?',
   PLATFORM_SETTINGS_SELECTOR_DESC: 'Customized Platform Settings',
 
   AUDITING_OPERATING_DESC:
@@ -537,8 +536,6 @@ module.exports = {
 
   MULTI_CLUSTER_TIP: 'The resource is deployed in multiple clusters.',
 
-  HISTORY_DESC:
-    'When you work in multiple workspaces or projects, your web browser will record the latest path you visited. You can check your history using F1, Win+K, or Command +K, which helps you quickly switch between the resources you access.',
   NO_HISTORY_TITLE:
     'Your web browser has not recorded any history of you accessing clusters or workspaces.',
   NO_HISTORY_DESC:

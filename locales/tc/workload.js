@@ -76,16 +76,25 @@ module.exports = {
   'HTTP Request': 'HTTP 請求',
   'Diff Settings': '差異化配置',
   'Deployment Mode': '部署模式',
+  'Custom Deployment Mode': '自定義部署模式',
+  'Add Deployment Mode': '添加部署模式',
+  DEPLOYMENT_MODE_DESC: '您可以为容器組調度指定規則',
   'Instance Status': '實例狀態',
 
   'No Request': '不預留',
   'No Limit': '不限制',
 
+  'Not Limited': '未限制',
+  Cost: '占用',
+  'Project Remaining Quota': '項目剩餘配額',
+  'Workspace Remaining Quota': '企業空間剩餘配額',
+  QUOTA_OVERCOST_TIP: '目前資源占用已超過剩餘配額',
+
   'Resource Request': '資源預留',
   'Resource Limit': '資源限制',
 
-  'Resource requests left quota': '資源預留剩餘配額',
-  'Resource limits left quota': '資源限制剩餘配額',
+  'Resource requests remaining quota': '資源預留剩餘配額',
+  'Resource limits remaining quota': '資源限制剩餘配額',
 
   'No resource limits': '無資源限制',
 
@@ -208,10 +217,15 @@ module.exports = {
   'CPU(m)': 'CPU(m)',
   Commands: '命令',
   'Add command': '添加命令',
-  Arguments: '参數',
-  Argument: '参數',
-  'Add argument': '添加参數',
+  Arguments: '參數',
+  Argument: '參數',
+  'Add argument': '添加參數',
   Protocols: '協定',
+  'Must match': '必須滿足',
+  'Match as much as possible': '盡可能滿足',
+  'Deploy with the Target': '與目標部署到壹起',
+  'Deploy away from the Target': '遠離目標部署',
+  'Please complete the policy': '請填寫完整策略',
   'Session Affinity': '會話親和性',
   'environment variables': '環境變量',
   'Add Environment Variable': '添加環境變量',
@@ -291,7 +305,7 @@ module.exports = {
   CRONJOBS_VOLUME_DESC:
     '可以將臨時儲存卷，持久化儲存卷掛載至定時任務的容器組内。',
   CRONJOB_CRON_DESC:
-    '按照給定的時間計畫運行工作。語法参照 <a href="//en.wikipedia.org/wiki/Cron" target="_blank">CRON</a>。Kubernetes 預設使用 UTC 時間, 請注意根據時區調整定時計畫。',
+    '按照給定的時間計畫運行工作。語法參照 <a href="//en.wikipedia.org/wiki/Cron" target="_blank">CRON</a>。Kubernetes 預設使用 UTC 時間, 請注意根據時區調整定時計畫。',
 
   MOUNT_VOLUME_DESC:
     '持久化儲存卷請選擇支持多節點讀寫模式 (ROX 或者 RWX) 的儲存卷，否則可能因容器組不在同一節點導致容器組更新失敗。如果您選擇了單節點讀寫 (RWO) 模式的儲存卷您也可以通過節點選擇將容器組安排在同一節點上來避免因儲存卷訪問模式造成的更新錯誤。',
@@ -518,12 +532,16 @@ module.exports = {
   registry: '倉庫',
   'Private Registry': '私有倉庫',
   'Image Name': '鏡像名稱',
-  'Not found this image': '没有找到此鏡像',
+  'Not found this image': '沒有找到此鏡像',
   SEARCH_IMAGE_PLACEHOLDER: '輸入關鍵字查找鏡像',
 
   'Pod Default Deployment': '容器組預設部署',
   'Pod Decentralized Deployment': '容器組分散部署',
+  'Pod Soft Decentralized Deployment': '容器組軟分散部署',
+  'Pod Hard Decentralized Deployment': '容器組硬分散部署',
   'Pod Aggregation Deployment': '容器組聚合部署',
+  'Pod Soft Aggregation Deployment': '容器組軟聚合部署',
+  'Pod Hard Aggregation Deployment': '容器組硬聚合部署',
   'Pod replicas will be deployed on different nodes as much as possible.':
     '容器組副本將會盡量分散在不同的節點中',
   'Pod replicas will be deployed on the same node as much as possible.':
@@ -574,12 +592,12 @@ module.exports = {
   RunContainerError: '啟動容器失敗',
   PostStartHookError: '執行 hook 報錯',
   ContainersNotInitialized: '容器未初始化',
-  ContainersNotReady: '容器没有準備就緒',
-  ContainerNotReady: '容器没有準備就緒',
+  ContainersNotReady: '容器沒有準備就緒',
+  ContainerNotReady: '容器沒有準備就緒',
   ContainerCreating: '容器創建中',
   PodInitializing: '容器組初始化中',
-  DockerDaemonNotReady: 'Docker 还没有完全啟動',
-  NetworkPluginNotReady: '網路插件还没有完全啟動',
+  DockerDaemonNotReady: 'Docker 還沒有完全啟動',
+  NetworkPluginNotReady: '網路插件還沒有完全啟動',
   POD_DESC:
     '容器組 (Pod) 是 Kubernetes 應用程式的基本執行單元，是您創建或部署的 Kubernetes 對象模型中最小和最簡單的單元。',
   POD_CREATE_DESC:
@@ -626,9 +644,9 @@ module.exports = {
 
   'Please select at least one container to mount': '請至少選擇一個容器進行掛載',
   'Sure to delete the workload(s)?': '確認刪除工作負載',
-  'No related resources': '没有關聯的資源',
+  'No related resources': '沒有關聯的資源',
   'No related resources found with the current workload(s)':
-    '目前工作負載下没有關聯的資源',
+    '目前工作負載下沒有關聯的資源',
   DELETE_WORKLOAD_DESC:
     '您即將刪除工作負載 {resource}，請您進行確認是否刪除關聯資源?',
 
@@ -640,7 +658,7 @@ module.exports = {
   CONTAINER_SECURITY_CTX_DESC:
     'Security Context的目的是限制不可信容器的行為，保護系統和其他容器不受其影響。',
   POD_SECURITY_CONTEXT_DESC:
-    '容器組 Security Context 可以為容器組内的容器提供預設的用戶和用戶組設置以及 seLinuxOptions 的参數設置，如果容器中已經對這些参數進行了定義，則優先以容器中的設置為準。',
+    '容器組 Security Context 可以為容器組内的容器提供預設的用戶和用戶組設置以及 seLinuxOptions 的參數設置，如果容器中已經對這些參數進行了定義，則優先以容器中的設置為準。',
   ACCESS_CONTROL_PRIVILEGED: '以特權模式運行(Privileged)',
   ACCESS_CONTROL_PRIVILEGED_DESC:
     '此時容器中的進程本質上等價於宿主節點上的 root 用戶。',
@@ -681,4 +699,6 @@ module.exports = {
   DEPLOY_PLACEMENT_TIP_TITLE: '什麼是部署位置？',
   DEPLOY_PLACEMENT_TIP_VALUE:
     '可以將容器組部署在不同集群中，並對集群中部署的副本數量進行定義。不同集群中的容器組將由聯邦集群控制器(Federation Controller Manager)進行統一的調度及狀態同步。',
+  IGNORE_CERT_DESC: '發現證書錯誤，是否忽略證書驗證並再次',
+  IGNORE_CERT_WARN_DESC: '忽略驗證證書，可能會導致帳戶密碼被欺騙。',
 }

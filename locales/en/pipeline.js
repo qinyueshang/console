@@ -44,7 +44,7 @@ module.exports = {
   'Behavioral strategy': 'Behavioral strategy',
   blocker: 'blocker',
   Branch: 'Branch',
-  branch: 'branch',
+  Branches: 'Branches',
   'Branch Count': 'Branch Count',
   'Branch Excluded': 'Branch Excluded',
   'Branch Included': 'Branch Included',
@@ -257,7 +257,7 @@ module.exports = {
   secretNamespace: 'secretNamespace',
   'select a pipeline': 'select a pipeline',
   'Select Code Repository': 'Select Code Repository',
-  'Select this repo': 'Select this repo',
+  'Select This Repository': 'Select This Repository',
   Sender: 'Sender',
   sh: 'sh',
   'Shell commands can be executed in the container':
@@ -332,15 +332,15 @@ module.exports = {
   'You can execute shell commands or windows batch commands in the build.':
     'You can execute shell commands or windows batch commands in the build.',
 
-  PIPELINE_DESC: `Pipeline is a collection of plugins that can be combined
+  PIPELINE_DESC: `A pipeline is a collection of plugins that can be combined
     to achieve continuous integration and continuous delivery.
     Pipeline DSL provides us with an extensible set of tools that allow
     us to implement simple to complex logic through code.`,
   username_password: 'Account Credentials',
   login_Plateform: 'Login platform',
-  CREDENTIALS_DESC: `Credential is an object that contains some sensitive data,
+  CREDENTIALS_DESC: `Credentials are objects that contain some sensitive data,
     such as username and password, SSH key and Token.
-    It is used to provide authentication for the process of pulling code,
+    They are used to provide authentication for pulling code,
     pushing/pulling images, executing SSH scripts, etc. when a pipeline is running.`,
   tips_Parametric_build: `The parameterized build process allows
     you to pass in one or more parameters when you build.
@@ -411,7 +411,7 @@ module.exports = {
     you need to create a mirrored repository and then pull the image. `,
   AGENT_TYPE_DESC: `The agent section specifies
     where the entire Pipeline or a particular stage will be executed in the Jenkins environment,
-    depending on where the agent part is placed.
+    depending on where the Agent part is placed.
     This part must be defined at the top level within the pipeline block,
     but the stage level usage is optional. `,
   AUTHENTICATION_TOKEN_DESC: `Use the following URL to remotely trigger the build:
@@ -559,6 +559,10 @@ module.exports = {
   'Batch Run Success': 'Batch Run Completed',
   'Batch Run Fail': 'Batch Run Failed',
   'Run Start': 'Start Running',
-  'Gitlab Server': 'Gitlab Server',
-  'Gitlab Owner': 'Owner',
+  'GitLab Server': 'GitLab Server',
+  'GitLab Owner': 'Owner',
+  CREATE_PIPELINE_DESC: 'Build, test and deploy with Pipelines',
+  'Choose a pipeline template': 'Choose a pipeline template',
+  BATCH_RUN_DESC: 'Multi-branch does not support batch operation',
+  'Sync Status': 'Sync Status',
 }

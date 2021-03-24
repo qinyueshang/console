@@ -91,6 +91,7 @@ module.exports = {
   'Current Utilization': 'Current Utilization',
   'Deployment Location': 'Deployment Location',
   'Deployment Mode': 'Deployment Mode',
+  DEPLOYMENT_MODE_DESC: 'You can specify rules for Pod scheduling',
   DeploymentPaused: 'DeploymentPaused',
   DeploymentResumed: 'DeploymentResumed',
   'Desired number of nodes scheduled': 'Desired number of nodes scheduled',
@@ -178,7 +179,7 @@ module.exports = {
   'Mount point': 'Mount point',
   'Mount Temporary Volume': 'Mount Temporary Volume',
   'Mount the configmap or secret to the specified directory.':
-    'Mount the configmap or secret to the specified directory.',
+    'Mount the ConfigMap or Secret to the specified directory.',
   'Mount Volume': 'Mount Volume',
   'Mount Volumes': 'Mount Volumes',
   mounted: 'mounted',
@@ -274,11 +275,11 @@ module.exports = {
   'Resource Info': 'Resource Info',
   'Resource Limit': 'Resource Limit',
   'Resource Limits': 'Resource Limits',
-  'Resource limits left quota': 'Resource limits left quota',
+  'Resource limits remaining quota': 'Resource limits remaining quota',
   'Resource Name': 'Resource Name',
   'Resource Request': 'Resource Request',
   'Resource Requests': 'Resource Requests',
-  'Resource requests left quota': 'Resource requests left quota',
+  'Resource requests remaining quota': 'Resource requests remaining quota',
   'Resource Status': 'Resource Status',
   'Restart Count': 'Restart Count',
   'Restart Policy': 'Restart Policy',
@@ -342,6 +343,14 @@ module.exports = {
   'What is Disk Log Collection?': 'What is Disk Log Collection?',
   'Worker Container': 'Worker Container',
   Workload: 'Workload',
+
+  'Not Limited': 'Not Limited',
+  Cost: 'Cost',
+  'Project Remaining Quota': 'Project Remaining Quota',
+  'Workspace Remaining Quota': 'Workspace Remaining Quota',
+  QUOTA_OVERCOST_TIP:
+    'The current resource usage has exceeded the remaining quota',
+
   WORKLOAD_REASON_DEPLOYMENTPAUSED: 'Deployment paused',
   WORKLOAD_REASON_DEPLOYMENTRESUMED: 'Deployment resumed',
   WORKLOAD_REASON_FAILEDCREATE: 'Creation failed',
@@ -358,7 +367,7 @@ module.exports = {
     'You can allow Pod replicas to run on specified nodes.',
 
   WORKLOAD_DESC:
-    'The workload is usually the actual carrier for accessing the service, and is also the actual running carrier for system applications such as node log collection and monitoring. Workload is an abstract model for a group of Pods.',
+    'A workload is usually the actual carrier for accessing the service, and is also the actual running carrier for system applications such as node log collection and monitoring. A workload is an abstract model for a group of Pods.',
   DEPLOYMENT_DESC:
     'Deployment provides fine-grained management of common applications in KubeSphere. Deployment configuration describes the desired state of specific components of an application as Pod templates.',
   DEPLOYMENT_CREATE_DESC:
@@ -372,13 +381,13 @@ module.exports = {
   DAEMONSET_CREATE_DESC:
     'A DaemonSet ensures that all (or some) Nodes run a copy of a Pod. Typically, a DaemonSet is used to running a logs collection, monitoring daemon or other system management applications.',
   JOB_DESC:
-    'A Job is used to execute one-time tasks. A job creates one or more pods and ensures that a specified number of them successfully terminate.',
+    'A Job is used to execute one-time tasks. A Job creates one or more Pods and ensures that a specified number of them successfully terminate.',
   JOB_CREATE_DESC:
-    'A Job is used to execute one-time tasks. A job creates one or more pods and ensures that a specified number of them successfully terminate.',
+    'A Job is used to execute one-time tasks. A Job creates one or more Pods and ensures that a specified number of them successfully terminate.',
   CRONJOB_DESC:
-    'A CronJob creates Jobs on a time-based schedule. For example, it runs a job periodically on a given schedule or only runs a job once on a given time.',
+    'A CronJob creates Jobs on a time-based schedule. For example, it runs a Job periodically on a given schedule or only runs a Job once on a given time.',
   CRONJOB_CREATE_DESC:
-    'A CronJob creates Jobs on a time-based schedule. For example, it runs a job periodically on a given schedule or only runs a job once on a given time.',
+    'A CronJob creates Jobs on a time-based schedule. For example, it runs a Job periodically on a given schedule or only runs a Job once on a given time.',
   CRONJOB_NAME_DESC:
     'It can only contain lowercase letters, numbers and hyphens("-"), and must begin and end with a lowercase letter or a number. The maximum length of characters is set to 52.',
   CRONJOB_NAME_TOO_LONG: 'The maximum length of characters is set to 52.',
@@ -397,9 +406,9 @@ module.exports = {
   MAX_DAEMON_UNAVAILABLE_POD_DESC:
     'The maximum number of DaemonSet pods that can be unavailable during the update.',
   MAX_DEPLOY_UNAVAILABLE_POD_DESC:
-    'The maximum number of pods that can be unavailable during the update.',
+    'The maximum number of Pods that can be unavailable during the update.',
   MAX_SURGE_POD_DESC:
-    'The maximum number of pods that can be scheduled above the desired number of pods.',
+    'The maximum number of Pods that can be scheduled above the desired number of Pods.',
   ROLLING_UPDATE_POD_TIP:
     'It limits the minimum and maximum available quantities based on the current replicas when it is in rolling update. The minimum number of replicas cannot exceed the current number of replicas, and the maximum number of Pods cannot exceed 2 times the current replicas.',
   ONDELETE_ALERT_TIP:
@@ -468,16 +477,16 @@ module.exports = {
 
   JOB_BACK_OFF_LIMIT_LABEL: 'Back off Limit',
   JOB_BACK_OFF_LIMIT_DESC:
-    'It specifies the number of retries before marking this job failed. It defaults to 6.',
+    'It specifies the number of retries before marking this Job failed. It defaults to 6.',
   JOB_PARALLELISM_LABEL: 'Parallelism',
   JOB_PARALLELISM_DESC:
-    'It specifies the maximum desired number of pods the job should run at any given time.',
+    'It specifies the maximum desired number of Pods the Job should run at any given time.',
   JOB_COMPLETION_LABEL: 'Completions',
   JOB_COMPLETION_DESC:
-    'It specifies the desired number of successfully finished pods the job should be run with.',
+    'It specifies the desired number of successfully finished Pods the Job should be run with.',
   JOB_ACTIVE_DL_SECONDS_LABEL: 'Active Deadline Seconds',
   JOB_ACTIVE_DL_SECONDS:
-    'It specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer.',
+    'It specifies the duration in seconds relative to the startTime that the Job may be active before the system tries to terminate it; value must be positive integer.',
 
   RESTART_POLICY_TIP:
     'RestartPolicy can only specify Never or OnFailure, when the job is not completed:<br/>* If RestartPolicy specifies Never, the job creates a new Pod when the Pod fails, and the failed Pod does not disappear.<br/>* If RestartPolicy specifies OnFailure, the job will internally restart the container when the Pod fails, instead of creating a new Pod.',
@@ -517,7 +526,7 @@ module.exports = {
   REPLICAS_PLACEHOLDER: 'Default: 1',
 
   ADD_VOLUME_TEMPLATE_DESC:
-    'The life cycle of the volume will be the same as that of the pod.',
+    'The life cycle of the volume will be the same as that of the Pod.',
 
   EDIT: 'Edit',
   MORE: 'More',
@@ -637,7 +646,7 @@ module.exports = {
     'A security context defines privilege and access control settings for a Pod or Container.',
 
   POD_SECURITY_CONTEXT_DESC:
-    'Pod Security Context can provide default user and user group settings and seLinuxOptions parameter settings for containers in the pod. If these parameters have been defined in the container, the settings in the container take precedence.',
+    'Pod Security Context can provide default user and user group settings and seLinuxOptions parameter settings for containers in the Pod. If these parameters have been defined in the container, the settings in the container take precedence.',
 
   ACCESS_CONTROL_PRIVILEGED: 'Privileged',
   ACCESS_CONTROL_PRIVILEGED_DESC:
@@ -658,10 +667,10 @@ module.exports = {
     'The GID to run the entrypoint of the container process. Uses runtime default if unset.',
 
   WORKLOAD_CREATE_DESC:
-    'Workload is usually the actual carrier for accessing services and is also the actual carrier for system applications such as node log collection and monitoring. Workload is also an abstract model for a group of Pods.',
+    'A workload is usually the actual carrier for accessing services and is also the actual carrier for system applications such as node log collection and monitoring. Workload is also an abstract model for a group of Pods.',
 
   CONTAINER_RESOURCE_LIMIT_TIP:
-    "Please set the container's resource limits and requests, which will help the system to better schedule and improve stability. In Project Settings, you can also set the default value (Basic Info -> Manage Project -> Edit Resource Default Request).",
+    "Please set the container's resource limits and requests, which will help the system to better schedule and improve stability. In Project Settings, you can also set the default value (Basic Information -> Manage Project -> Edit Resource Default Request).",
 
   COMPARE_WITH: 'Comparison with the previous version {version}',
   REVISION_DESC:
@@ -685,4 +694,8 @@ module.exports = {
   DEPLOY_PLACEMENT_TIP_TITLE: 'What is Deployment Location?',
   DEPLOY_PLACEMENT_TIP_VALUE:
     'You can deploy Pods on different clusters and define the number of replicas deployed. The Federation Controller Manager schedules Pods on different clusters in a unified way and synchronizes status.',
+  IGNORE_CERT_DESC:
+    'A certificate error was found, do you want to ignore the certificate verification',
+  IGNORE_CERT_WARN_DESC:
+    'Ignoring the verification certificate may cause the account password to be disclosed. ',
 }

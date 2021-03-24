@@ -150,7 +150,6 @@ const NamespaceMapper = item => ({
   annotations: get(item, 'metadata.annotations', {}),
   workspace: get(item, 'metadata.labels["kubesphere.io/workspace"]', ''),
   status: get(item, 'status.phase'),
-  opRuntime: get(item, 'metadata.annotations.openpitrix_runtime'),
   isFedHostNamespace:
     get(item, 'metadata.labels["kubesphere.io/kubefed-host-namespace"]') ===
     'true',
@@ -678,6 +677,16 @@ const ConfigmapMapper = item => ({
   _originData: getOriginData(item),
 })
 
+const ServiceAccountMapper = item => ({
+  ...getBaseInfo(item),
+  namespace: get(item, 'metadata.namespace'),
+  labels: get(item, 'metadata.labels', {}),
+  annotations: get(item, 'metadata.annotations', {}),
+  role: get(item, 'metadata.annotations["iam.kubesphere.io/role"]'),
+  secrets: get(item, 'secrets', []),
+  _originData: getOriginData(item),
+})
+
 const secretDataParser = data => {
   if (data.type === 'kubernetes.io/basic-auth') {
     return Object.entries(get(data, 'data', {})).reduce(
@@ -727,7 +736,7 @@ const getApplicationStatus = item => {
       return 'Error'
     }
     if (condition.type === 'Ready' && condition.status === 'True') {
-      return 'Ready'
+      return 'Running'
     }
   }
 
@@ -1247,7 +1256,7 @@ const StorageclasscapabilitiesMapper = item => {
 const ServiceMonitorMapper = item => ({
   ...getBaseInfo(item),
   namespace: get(item, 'metadata.namespace'),
-  interval: get(item, 'spec.endpoints[0].interval'),
+  endpoints: get(item, 'spec.endpoints', []),
   _originData: getOriginData(item),
 })
 
@@ -1262,6 +1271,19 @@ const GroupsMapper = item => ({
   _originData: getOriginData(item),
 })
 
+const AlertingRuleMapper = item => {
+  const resources = safeParseJSON(get(item, 'annotations.resources'), [])
+  const rules = safeParseJSON(get(item, 'annotations.rules'), [])
+  return {
+    ...item,
+    aliasName: get(item, 'annotations.aliasName'),
+    description: get(item, 'annotations.description'),
+    resources,
+    rules,
+    ruleType: !isEmpty(resources) ? 'template' : 'custom',
+  }
+}
+
 export default {
   deployments: WorkLoadMapper,
   daemonsets: WorkLoadMapper,
@@ -1274,6 +1296,7 @@ export default {
   revisions: RevisionMapper,
   horizontalpodautoscalers: HpaMapper,
   nodes: NodeMapper,
+  edgenodes: NodeMapper,
   registries: RegistryMapper,
   pods: PodsMapper,
   events: EventsMapper,
@@ -1290,6 +1313,7 @@ export default {
   rolebinds: RoleBindMapper,
   gateway: GatewayMapper,
   configmaps: ConfigmapMapper,
+  serviceaccounts: ServiceAccountMapper,
   secrets: SecretMapper,
   limitranges: LimitRangeMapper,
   applications: ApplicationMapper,
@@ -1320,4 +1344,5 @@ export default {
   servicemonitors: ServiceMonitorMapper,
   groups: GroupsMapper,
   default: DefaultMapper,
+  rules: AlertingRuleMapper,
 }

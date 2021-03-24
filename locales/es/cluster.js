@@ -49,7 +49,6 @@ module.exports = {
   Import: 'Importar',
   'Import Kubernetes Cluster': 'Importar clúster de Kubernetes',
   'Invite members to the cluster': 'Invitar miembros al clúster',
-  'IP Ranges': 'Rangos de IP',
   'Kubernetes Settings': 'Configuraciones de Kubernetes',
   'Kubernetes Status': 'Estado de Kubernetes',
   'Kubernetes Version': 'Versión de Kubernetes',
@@ -87,12 +86,12 @@ module.exports = {
   'How to Add': 'How to Add',
   'New Cluster': 'New Cluster',
   'Import Cluster': 'Import Cluster',
-  'Cluster Basic Info': 'Cluster Basic Info',
+  'Cluster Basic Info': 'Cluster Basic Information',
   'Node Settings': 'Node Settings',
   'Please add at least one cluster node':
     'Please add at least one cluster node',
   "Please specify the node's roles": "Please specify the node's roles",
-  'Please input the ip address': 'Please input the ip address',
+  'Please input the IP address': 'Please input the IP address',
   'Add node to the cluster': 'Add node to the cluster',
   'Node Internal IP Address': 'Node Internal IP Address',
   'SSH Port': 'SSH Port',
@@ -112,7 +111,7 @@ module.exports = {
   'etcd Backup Period': 'etcd Backup Period',
   'Keep Backup Number': 'Keep Backup Number',
   'KubeSphere Settings': 'KubeSphere Settings',
-  'Invalid ip address': 'Invalid ip address',
+  'Invalid IP address': 'Invalid IP address',
   NO_CLUSTER_TIP: 'Agregue al menos un clúster.',
   NO_CLUSTER_TIP_DESC:
     'Un clúster es un grupo de nodos (máquinas físicas o virtuales) que ejecutan Kubernetes, y la función de Kubesphere también depende de los nodos en el clúster.',
@@ -197,7 +196,7 @@ module.exports = {
   NEW_CLUSTER_DESC: 'add a new Kubernetes cluster',
   CLUSTER_NODE_SETTINGS_DESC: 'add the nodes for the cluster',
   CLUSTER_NODE_INTERNAL_IP_DESC:
-    'Intranet IP addresses that can be accessed between nodes in the cluster.',
+    'The internal IP address for the connection between cluster nodes.',
   NODE_ROLE_DESC:
     'The number of master nodes needs to be 1 or 3, and the number of woker nodes must be at least 1.',
   SSH_IP_ADDRESS_DESC:
@@ -258,4 +257,7 @@ module.exports = {
 
   CLUSTER_CREATION_PROGRESS_TIP:
     'According to the size of the created cluster and the difference in network connection, it takes about 30 to 60 minutes to create the entire cluster. ',
+
+  CLUSTER_REGION: 'Cluster Region',
+  CLUSTER_ZONE: 'Cluster Zone',
 }

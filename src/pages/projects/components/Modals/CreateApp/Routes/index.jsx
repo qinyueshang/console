@@ -18,6 +18,7 @@
 
 import { get, set, omit } from 'lodash'
 import React from 'react'
+import { toJS } from 'mobx'
 
 import SecretStore from 'stores/secret'
 import FederatedStore from 'stores/federated'
@@ -104,7 +105,7 @@ export default class Routes extends React.Component {
     const namespace = get(formData, 'application.metadata.namespace')
 
     if (isGovernance) {
-      const template = get(ingress, isFederated ? 'spec.template' : '')
+      const template = isFederated ? get(ingress, 'spec.template') : ingress
       const serviceName = get(
         template,
         'spec.rules[0].http.paths[0].backend.serviceName'
@@ -122,7 +123,8 @@ export default class Routes extends React.Component {
   handleAdd = data => {
     const { isFederated } = this.props
     const { ingress, selectRuleIndex } = this.state
-    const template = get(ingress, isFederated ? 'spec.template' : '')
+
+    const template = isFederated ? get(ingress, 'spec.template') : ingress
 
     const rules = get(template, 'spec.rules', [])
 
@@ -146,7 +148,7 @@ export default class Routes extends React.Component {
   handleDelete = index => {
     const { isFederated } = this.props
     const { ingress } = this.state
-    const template = get(ingress, isFederated ? 'spec.template' : '')
+    const template = isFederated ? get(ingress, 'spec.template') : ingress
 
     const rules = get(template, 'spec.rules', [])
 
@@ -189,7 +191,7 @@ export default class Routes extends React.Component {
     const overrides = []
     const { isFederated, projectDetail } = this.props
     const { ingress } = this.state
-    const template = get(ingress, isFederated ? 'spec.template' : '')
+    const template = isFederated ? get(ingress, 'spec.template') : ingress
     const annotations = get(template, 'metadata.annotations', [])
     const rules = get(template, 'spec.rules', [])
     const tls = get(template, 'spec.tls', [])
@@ -228,9 +230,11 @@ export default class Routes extends React.Component {
     } = this.props
     const { showAdd, ingress, services, selectRuleIndex } = this.state
 
-    const selectRule = get(ingress, `spec.rules[${selectRuleIndex}]`, {})
+    const template = isFederated ? get(ingress, 'spec.template') : ingress
 
-    const secrets = this.secretStore.list.data
+    const selectRule = get(template, `spec.rules[${selectRuleIndex}]`, {})
+
+    const secrets = toJS(this.secretStore.list.data)
 
     return (
       <div className={styles.wrapper}>
@@ -241,7 +245,7 @@ export default class Routes extends React.Component {
         <div className={styles.title}>{t('Route Rules')}</div>
         <div className={styles.rules}>
           <RuleList
-            data={ingress}
+            data={template}
             gateway={gateway}
             isFederated={isFederated}
             projectDetail={projectDetail}

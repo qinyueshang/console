@@ -63,12 +63,6 @@ export const NODE_STATUS = [
   { text: 'NODE_STATUS_WARNING', value: 'warning' },
 ]
 
-export const ALERT_MESSAGE_STATUS = [
-  { text: 'All', value: 'resumed,triggered' },
-  { text: 'Resumed', value: 'resumed' },
-  { text: 'Triggered', value: 'triggered' },
-]
-
 export const ACCESS_MODES = {
   ReadWriteOnce: 'RWO',
   ReadOnlyMany: 'ROX',
@@ -197,6 +191,7 @@ export const ICON_TYPES = {
   persistentvolumeclaims: 'storage',
   storageclasses: 'database',
   nodes: 'nodes',
+  edgenodes: 'nodes',
   devops: 'strategy-group',
   projects: 'project',
   namespaces: 'project',
@@ -217,6 +212,7 @@ export const ICON_TYPES = {
   'requests.cpu': 'cpu',
   'requests.memory': 'memory',
   configmaps: 'hammer',
+  serviceaccounts: 'client',
   secrets: 'key',
   'alert-messages': 'loudspeaker',
   'alert-policies': 'wrench',
@@ -247,6 +243,7 @@ export const MODULE_KIND_MAP = {
   storageclasses: 'StorageClass',
   'alert-policies': 'AlertingPolicy',
   configmaps: 'ConfigMap',
+  serviceaccounts: 'ServiceAccount',
   secrets: 'Secret',
   s2ibuilders: 'S2iBuilder',
   nodes: 'Node',
@@ -255,7 +252,7 @@ export const MODULE_KIND_MAP = {
   workspaces: 'WorkspaceTemplate',
   clusters: 'Cluster',
   dashboards: 'Dashboard',
-  clusterdashboards: 'Dashboard',
+  clusterdashboards: 'ClusterDashboard',
   applications: 'Application',
   users: 'User',
   devops: 'DevOpsProject',
@@ -327,12 +324,31 @@ export const QUOTAS_MAP = {
   },
 }
 
+export const WORKSPACE_QUOTAS_MAP = {
+  'limits.cpu': {
+    name: 'limits.cpu',
+    placeholder: 'eg: 1 or 1000m',
+  },
+  'requests.cpu': {
+    name: 'requests.cpu',
+    placeholder: 'eg: 1 or 1000m',
+  },
+  'limits.memory': {
+    name: 'limits.memory',
+    placeholder: 'eg: 100Gi',
+  },
+  'requests.memory': {
+    name: 'requests.memory',
+    placeholder: 'eg: 100Gi',
+  },
+}
+
 export const REPO_TYPES = [
   { name: 'GitHub', value: 'github', icon: 'github' },
+  { name: 'GitLab', value: 'gitlab', icon: 'gitlab' },
+  { name: 'Bitbucket Server', value: 'bitbucket_server', icon: 'bitbucket' },
   { name: 'Git', value: 'git', icon: 'git' },
   { name: 'SVN', value: 'svn', icon: 'svn' },
-  { name: 'Bitbucket Server', value: 'bitbucket_server', icon: 'bitbucket' },
-  { name: 'GitLab', value: 'gitlab', icon: 'gitlab' },
 ]
 
 export const REPO_KEY_MAP = {
@@ -470,7 +486,6 @@ export const PATTERN_PIPELINE_NAME = /[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([
 export const PATTERN_HOST = /^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$/
 
 export const PATTERN_URL = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/
-export const PATTERN_VERSION_NO = /^\d+((\.|\d|^\s+|\s|\[)*)+((\d|\])$)/
 export const PATTERN_EMAIL = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
 export const PATTERN_IP = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/
 export const PATTERN_IP_MASK = /^[1-9][0-9]*$/
@@ -825,6 +840,7 @@ export const API_VERSIONS = {
   volumes: 'api/v1',
   secrets: 'api/v1',
   configmaps: 'api/v1',
+  serviceaccounts: 'api/v1',
   events: 'api/v1',
   resourcequotas: 'api/v1',
   limitranges: 'api/v1',

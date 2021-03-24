@@ -32,7 +32,7 @@ export default class CreateIPPoolModal extends Component {
     count: 1,
     ip: '',
     mask: 24,
-    cidrs: [{ cidr: `` }],
+    cidrs: [],
     formData: {},
   }
 
@@ -52,15 +52,16 @@ export default class CreateIPPoolModal extends Component {
 
   handleCIDRsChange = debounce(() => {
     const { ip, mask, count, formData } = this.state
-    const cidrs = [{ cidr: `${ip}/${mask}` }]
-    if (PATTERN_IP.test(ip) && mask) {
-      if (count > 1) {
-        let index = 0
-        let block = new Netmask(`${ip}/${mask}`)
-        while (index < count - 1) {
-          index += 1
-          block = block.next()
-          cidrs.push({ cidr: block.toString() })
+    const cidrs = []
+    if (PATTERN_IP.test(ip) && mask && count > 0) {
+      let index = 0
+      let block = new Netmask(`${ip}/${mask}`)
+      while (index < count) {
+        index += 1
+        block = block.next()
+        const cidr = block.toString()
+        if (cidrs.every(item => item.cidr !== cidr)) {
+          cidrs.push({ cidr })
         }
       }
     }
@@ -69,12 +70,37 @@ export default class CreateIPPoolModal extends Component {
     this.setState({ cidrs, formData })
   }, 200)
 
+  validator = (rule, value, callback) => {
+    if (!value) {
+      return callback({
+        message: t('Please input the IP/mask bit'),
+        field: rule.field,
+      })
+    }
+
+    if (!value.cidr) {
+      return callback({
+        message: t('Please input the IP/mask bit'),
+        field: rule.field,
+      })
+    }
+
+    if (!value.name) {
+      return callback({
+        message: t('Please input name'),
+        field: rule.field,
+      })
+    }
+
+    callback()
+  }
+
   render() {
     const { count, cidrs, formData } = this.state
     const { ...rest } = this.props
     return (
       <Modal.Form
-        title={t('Create IP Pool')}
+        title={t('Create Pod IP Pool')}
         width={960}
         data={formData}
         {...rest}
@@ -82,16 +108,19 @@ export default class CreateIPPoolModal extends Component {
         <Form.Item
           label={t('IP Address')}
           rules={[
-            { required: true, message: t('Please input ip address') },
+            { required: true, message: t('Please input the IP address') },
             {
               pattern: PATTERN_IP,
-              message: t('Invalid ip address'),
+              message: t('Invalid IP address'),
             },
           ]}
         >
           <Input name="ip" onChange={this.handleIPChange} />
         </Form.Item>
-        <Form.Item label={t('Mask')}>
+        <Form.Item
+          label={t('Mask Bit')}
+          rules={[{ required: true, message: t('Please input the mask bit') }]}
+        >
           <NumberInput
             name="mask"
             defaultValue={24}
@@ -101,9 +130,21 @@ export default class CreateIPPoolModal extends Component {
             onChange={this.handleMaskChange}
           />
         </Form.Item>
-        <Form.Item label={t('Number of Creations')}>
+        <Form.Item
+          label={t('Number of Creation')}
+          desc={t('IP_POOL_CREATE_COUNT_DESC')}
+          rules={[
+            {
+              required: true,
+              message: t(
+                'Please input the number of Pod IP Pools to be created'
+              ),
+            },
+          ]}
+        >
           <NumberInput
-            value={count}
+            name="count"
+            defaultValue={count}
             integer
             min={1}
             max={10}
@@ -112,11 +153,12 @@ export default class CreateIPPoolModal extends Component {
         </Form.Item>
         {cidrs.map((value, index) => (
           <Form.Item
-            label={index === 0 ? t('CIDRs to be created') : ''}
+            label={index === 0 ? t('Pod IP Pools to be created') : ''}
             key={index}
+            rules={[{ validator: this.validator }]}
           >
             <ObjectInput className={styles.item} name={`cidrs[${index}]`}>
-              <Input name="cidr" placeholder={t('IP/Mask')} />
+              <Input name="cidr" placeholder={t('IP/Mask Bit')} />
               <Input
                 name="name"
                 defaultValue={`ippool-${this.random}-${index}`}

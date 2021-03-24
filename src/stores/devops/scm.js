@@ -16,12 +16,13 @@
  * along with KubeSphere Console.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { action, observable, toJS } from 'mobx'
+import { action, observable } from 'mobx'
 import { isArray, get, isEmpty, set } from 'lodash'
 import { parseUrl, getQueryString, generateId } from 'utils'
 import { CREDENTIAL_DISPLAY_KEY } from 'utils/constants'
 
 import BaseStore from 'stores/devops/base'
+import qs from 'qs'
 import CredentialStore from './credential'
 
 export default class SCMStore extends BaseStore {
@@ -215,7 +216,7 @@ export default class SCMStore extends BaseStore {
         [CREDENTIAL_DISPLAY_KEY['basic-auth']]: {
           id: this.githubCredentialId,
           password: token,
-          login: 'github',
+          username: 'github',
         },
       }
 
@@ -259,7 +260,7 @@ export default class SCMStore extends BaseStore {
       ...params,
     })
     this.credentials = this.credentialStore.list
-    window.pipelineCredentials = toJS(this.credentials) // cache in gloable varibles
+    this.credentials.loading = false
   }
 
   @action
@@ -372,18 +373,16 @@ export default class SCMStore extends BaseStore {
       cluster,
     })}${devops}/jenkins/gitlab/serverList`
 
-    const result = await this.request.get(url, {}, {}, () => {
+    const result = await this.request.post(url, {}, {}, () => {
       return []
     })
 
     let serverList = []
 
     if (result.status === 'ok' && isArray(result.data)) {
-      serverList =
-        !isEmpty(result.data) &&
-        result.data.map(item => {
-          return { label: item.name, value: item.name }
-        })
+      serverList = result.data.map(item => {
+        return { label: item.name, value: item.name }
+      })
     }
 
     return serverList
@@ -391,22 +390,22 @@ export default class SCMStore extends BaseStore {
 
   @action
   fetchGitLabProjectList = async ({ cluster, devops, server, owner }) => {
-    const url = `${this.getDevopsUrlV2({
+    let url = `${this.getDevopsUrlV2({
       cluster,
     })}${devops}/jenkins/gitlab/projectList`
 
-    let projectList = []
+    url += `?${qs.stringify({ server, owner })}`
 
-    const result = await this.request.get(url, { server, owner }, {}, () => {
+    const result = await this.request.post(url, {}, {}, () => {
       return []
     })
 
+    let projectList = []
+
     if (result.status === 'ok' && isArray(result.data)) {
-      projectList =
-        !isEmpty(result.data) &&
-        result.data.map(item => {
-          return { label: item, value: item }
-        })
+      projectList = result.data.map(item => {
+        return { label: item, value: item }
+      })
     }
 
     return projectList

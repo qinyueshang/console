@@ -22,8 +22,9 @@ import { observer, inject } from 'mobx-react'
 import { get, isEmpty } from 'lodash'
 import { Loading } from '@kube-design/components'
 
-import { getDisplayName, getLocalTime, joinSelector } from 'utils'
+import { getDisplayName, getLocalTime } from 'utils'
 import { trigger } from 'utils/action'
+
 import AppStore from 'stores/application/crd'
 
 import DetailPage from 'projects/containers/Base/Detail'
@@ -63,17 +64,6 @@ export default class CRDAppDetail extends React.Component {
     this.store.fetchDetail(params)
   }
 
-  fetchComponents = () => {
-    const { selector } = this.store.detail
-    const { cluster, namespace } = this.props.match.params
-    const params = {
-      cluster,
-      namespace,
-      labelSelector: joinSelector(selector),
-    }
-    this.store.fetchComponents(params)
-  }
-
   getOperations = () => [
     {
       key: 'edit',
@@ -90,24 +80,24 @@ export default class CRDAppDetail extends React.Component {
     {
       key: 'addComponent',
       icon: 'add',
-      text: t('Add Component'),
+      text: t('Add Service'),
       action: 'edit',
       onClick: () =>
-        this.trigger('crd.app.addcomponent', {
-          success: this.fetchData,
+        this.trigger('crd.app.addservice', {
+          success: this.fetchComponents,
           detail: toJS(this.store.detail),
           ...this.props.match.params,
         }),
     },
     {
-      key: 'serviceMonitor',
-      icon: 'linechart',
-      text: t('Application Monitoring Exporter'),
+      key: 'addRoute',
+      icon: 'add',
+      text: t('Add Route'),
       action: 'edit',
       onClick: () =>
-        this.trigger('app.service.monitor', {
+        this.trigger('crd.app.addroute', {
+          success: this.fetchData,
           detail: toJS(this.store.detail),
-          success: this.fetchComponents,
           ...this.props.match.params,
         }),
     },

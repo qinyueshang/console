@@ -145,13 +145,17 @@ export default class ServiceDeployAppModal extends React.Component {
         'metadata.annotations["nginx.ingress.kubernetes.io/upstream-vhost"]',
         `productpage.${namespace}.svc.cluster.local`
       )
-      set(
-        formData.ingress,
-        'spec.rules[0].host',
-        gateway.isHostName
-          ? gateway.defaultIngress
-          : `productpage.${namespace}.${gateway.defaultIngress}.nip.io`
-      )
+      if (!gateway.defaultIngress) {
+        set(formData.ingress, 'spec.rules', [])
+      } else {
+        set(
+          formData.ingress,
+          'spec.rules[0].host',
+          gateway.isHostName
+            ? gateway.defaultIngress
+            : `productpage.${namespace}.${gateway.defaultIngress}.nip.io`
+        )
+      }
 
       this.setState({ formData })
     })
@@ -182,7 +186,7 @@ export default class ServiceDeployAppModal extends React.Component {
     const { cluster, namespace } = this.props
     await this.routerStore.getGateway({ cluster, namespace })
     const gateway = toJS(this.routerStore.gateway.data)
-    const isGovernance = this.serviceMeshEnable && gateway.serviceMeshEnable
+    const isGovernance = !!(this.serviceMeshEnable && gateway.serviceMeshEnable)
     set(
       this.state.formData.application,
       'metadata.annotations["servicemesh.kubesphere.io/enabled"]',

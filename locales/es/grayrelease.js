@@ -27,7 +27,7 @@ module.exports = {
   'Create Job': 'Crear job',
   'Custom Header': 'Cabecera personalizada',
   'Deploy sample application': 'Implementar aplicación de demo',
-  'Deploy Sample Application': 'Implementar aplicación de demo',
+  'Deploy Sample App': 'Implementar aplicación de demo',
   'Edit Grayscale Release Job': 'Editar job de Grayscale Release',
   'Exact Match': 'Coincidencia exacta',
   'Forward by request content': 'Reenviar por contenido de solicitud',
@@ -58,7 +58,7 @@ module.exports = {
   'Please select a grayscale release component':
     'Selecciona un componente Grayscale Release',
   'Policy Config': 'Configuración de política',
-  'Port protocol is not HTTP, cannot publish policy by request content':
+  POLICY_REQUEST_CONTENT_TIP:
     'El protocolo de puerto no es HTTP, no se puede publicar la política por el contenido de la solicitud',
   'Prefix Match': 'Coincidencia de prefijo',
   'Real-time traffic distribution': 'Distribución de tráfico en tiempo real.',

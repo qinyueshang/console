@@ -18,9 +18,9 @@
 
 module.exports = {
   APP_TEMPLATE_DESC:
-    'KubeSphere 提供全生命週期的應用管理，可以上傳或者創建新的應用模板，并且快速部署它們，也可以通過應用商店進行發佈應用。',
+    'KubeSphere 提供全生命週期的應用管理，可以上傳或者創建新的應用模板，並且快速部署它們，也可以通過應用商店進行發佈應用。',
   APP_TEMPLATE_CREATE_DESC:
-    'KubeSphere 提供全生命週期的應用管理，可以上傳或者創建新的應用模板，并且快速部署它們，也可以通過應用商店進行發佈應用。',
+    'KubeSphere 提供全生命週期的應用管理，可以上傳或者創建新的應用模板，並且快速部署它們，也可以通過應用商店進行發佈應用。',
   DEVELOP_APP_TITLE: '開發應用模板',
   DEVELOP_APP_DESC:
     '您可以上傳 Helm Chart 或者使用 KubeSphere 提供的資源編排工具進行應用模板的開發',
@@ -34,12 +34,13 @@ module.exports = {
 
   'Apps Management': '應用管理',
   'App Store Management': '應用商店管理',
-  'Certified Provider': '已認證服務商',
 
   'App Info': '應用資訊',
   'Base Info': '基本資訊',
   'App Details': '應用詳情',
   'App Config': '應用配置',
+  'Current App Config': '當前應用配置',
+  'New App Config': '新的應用配置',
   Introduction: '使用說明',
   'Terms of service': '服務條款',
   'Config File': '配置文件',
@@ -55,10 +56,10 @@ module.exports = {
   APP_ABSTRACTION_DESC: '對應用的概括性介紹',
   APP_DETAIL_DESC: '在用戶搜索應用時會非常有幫助',
   'Upload Icon': '上傳圖標',
-  APP_ICON_NOTE: '96px*96px 以内 JPG 或者 PNG',
+  APP_ICON_NOTE: '96px * 96px 以内 JPG 或者 PNG',
   APP_ICON_FORMAT: '格式: PNG 背景透明最佳',
-  APP_ICON_SIZE: '圖形大小: 96px*96px',
-  'Start edit': '開始編輯',
+  APP_ICON_SIZE: '圖形大小: 96px * 96px',
+  'Start editing': '開始編輯',
   File: '檔案',
   'Platform App Store Management': '平台級應用商店管理',
 
@@ -67,12 +68,12 @@ module.exports = {
   Provider: '服務商',
   'Latest Version': '最新版本',
   'App Category': '應用分類',
-  'Release / Suspended Time': '上架(下架)時間',
+  'Release / Suspended Time': '上架 (下架) 時間',
 
   'App Review': '應用審核',
   'App Reviews': '應用審核',
-  APP_REVIEW_DESC: '對服務商的認證及應用上架提供審核功能',
-  APP_REVIEWS_CREATE_DESC: '對服務商的認證及應用上架提供審核功能',
+  APP_REVIEW_DESC: '對應用上架提供審核功能',
+  APP_REVIEWS_CREATE_DESC: '對應用上架提供審核功能',
   Unprocessed: '待處理',
   Processed: '已處理',
   'Review Object': '審核對象',
@@ -87,9 +88,10 @@ module.exports = {
   REVIEW_CONTENT_DESC:
     '以下資訊必須真實準確，關鍵的操作說明需要描述詳情，對於條款中的權利與義務需要描述清楚。',
   SUBMIT_REVIEW_DESC: '提交應用至應用商店，審核通過後將出現在應用商店中',
-  REVIEWS_CREATE_DESC: '暫時没有相關的應用審核數據',
+  REVIEWS_CREATE_DESC: '暫時沒有相關的應用審核數據',
 
   'App Version': '應用版本',
+  'Current App Version': '當前應用版本',
   'Service Provider': '服務提供商',
   'App Introduction': '應用介紹',
   'Reject Reason': '拒絕原因',
@@ -106,24 +108,23 @@ module.exports = {
   ADJUST_CATEGORY_DESC: '應用分類將決定該應用在應用商店中的分類',
   'Change Category': '調整分類',
   DELETE_CATEGORY_WARNING:
-    '該分類綁定了<strong>{total}</strong>個應用，請先將這些應用調整到其它分類後才能刪除',
-  DELETE_CATEGORY_DESC: '你確定要刪除分類【{name}】嗎?',
+    '該分類綁定了 <strong>{total}</strong> 個應用，請先將這些應用調整到其它分類後才能刪除',
+  DELETE_CATEGORY_DESC: '你確定要刪除分類 【{name}】 嗎？',
   'Adjust Successfully': '調整成功',
 
   APP_TEMPLATES_DESC:
     'KubeSphere 提供全生命週期的應用管理，可以上傳或者創建新的應用模板，並且快速部署它們，也可以通過應用商店進行發佈應用。',
   UPLOAD_HELM_TITLE: '上傳 Helm 配置文件',
-  UPLOAD_HELM_DESC: '上傳已有的 Helm  Chart ',
+  UPLOAD_HELM_DESC: '上傳已有的 Helm Chart ',
   'Edit App Informatio': '編輯應用資訊',
   EDIT_APP_DESC: '對應用的基本資訊進行設置',
   'App Number': '應用編號',
   'App Version Types': '交付類型',
-  'App Provider': '應用服務商',
   'Create Time': '創建時間',
   'Add Version': '添加版本',
   'New Version': '添加版本',
   'App Deploy': '應用部署',
-  'Test Deploy': '測試部署',
+  'Test Deployment': '測試部署',
   'Modify Successfully': '修改成功',
   'Add Version Successfully': '添加版本成功',
   'Submit Successfully': '提交成功',
@@ -174,7 +175,7 @@ module.exports = {
   'Edit App Information': '編輯應用資訊',
   Uncategorized: '未分類',
   'Category Name': '分類名稱',
-  CATEGORY_NAME_DESC: '建議不超過8個字元，最多能輸入20個字元',
+  CATEGORY_NAME_DESC: '建議不超過 8 個字元，最多能輸入 20 個字元',
   'Please input category name': '請輸入分類名稱',
   ICON_DESC: '請選擇一個圖示來標示分類',
   'Please select icon': '請選擇圖示',
@@ -184,7 +185,6 @@ module.exports = {
   'Version No': '版本號碼',
   'Deploy now': '立即部署',
   'Deploy after login': '登入後部署',
-  'Provider No': '服務商編號',
   'Evaluation stars': '綜合評價',
   'Business introduction': '業務介紹',
   'Company website': '公司官網',
@@ -198,7 +198,7 @@ module.exports = {
   'Very helpful when users search for apps': '在用戶搜索應用時會非常有幫助',
   Icon: '圖示',
   'Format png/svg background transparency is the best':
-    '格式: png/svg 背景透明最佳',
+    '格式： png/svg 背景透明最佳',
   CHOOSE_APP_CATEGORY_DESC: '選擇適合的應用分類，便於用戶更快發現你的應用',
   'Service Provider Website': '服務商網站',
   "Service provider's official website address": '服務商的官方網站地址',
@@ -208,7 +208,7 @@ module.exports = {
   'Instance Name': '實例名稱',
   'Index Successfully': '同步成功',
 
-  NO_DEPLOY_RUNTIME_NOTE: '項目中没有可用的部署運行環境',
+  NO_DEPLOY_RUNTIME_NOTE: '項目中沒有可用的部署運行環境',
 
   'Upload icon': '上傳圖示',
 
@@ -216,7 +216,7 @@ module.exports = {
 
   APP_CATE_UNCATEGORIZED: '未分類',
 
-  MISS_FILE_NOTE: '文件{file}没有找到',
+  MISS_FILE_NOTE: '文件 {file} 沒有找到',
 
   'Please select a project to deploy': '請選擇項目部署',
   'Please select a workspace': '請選擇企業空間',
@@ -231,7 +231,7 @@ module.exports = {
 
   DELETE_APP_TEMPLATE_TIP: '刪除應用模板前，需要先刪除所有版本。',
 
-  UNPROCESSED_APP_REVIEW: '未处理的应用审核',
-  PROCESSED_APP_REVIEW: '已处理的应用审核',
-  ALL_APP_REVIEW: '应用审核',
+  UNPROCESSED_APP_REVIEW: '未處理的應用審核',
+  PROCESSED_APP_REVIEW: '已處理的應用審核',
+  ALL_APP_REVIEW: '應用審核',
 }

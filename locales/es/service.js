@@ -24,6 +24,7 @@ module.exports = {
   'Add Route Rule': 'Agregar regla de ruta',
   'Add Selector': 'Agregar selector',
   'Associated Application': 'Solicitud asociada',
+  Auto: 'Auto',
   'Automatically assign Service IP':
     'Asigna automáticamente una IP de servicio',
   'Commonly included tags in the current workloads':
@@ -76,6 +77,7 @@ module.exports = {
   services: 'servicios',
   'Simple Service': 'Servicio simple',
   'Specify Workload': 'Especificar carga de trabajo',
+  'Specify Node': 'Especificar nó',
   'Specify Workloads': 'Especificar cargas de trabajo',
   'Stateful Service': 'Stateful Service',
   'Stateless Service': 'Stateless Service',
@@ -154,5 +156,8 @@ module.exports = {
     'Configure el puerto para exponer la imagen del contenedor y el puerto de servicio.',
   SPECIFY_WORKLOAD_DESC:
     'Especifique una carga de trabajo que debe asociarse con el servicio.',
+
+  SPECIFY_NODE_DESC: 'Especifique um nó que precisa ser associado ao serviço.',
+
   EIP_POOL_DESC: 'Método de acceso dentro del clúster (DNS)',
 }

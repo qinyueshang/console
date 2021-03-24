@@ -63,7 +63,7 @@ module.exports = {
     '部署文件模板目录，模板填入 values.yaml 中相应值，生成最终的 Kubernetes 配置文件',
   NOTES_FILE_DESC: '使用指南',
 
-  'Version update info': '版本更新说明',
+  'Version Update Info': '版本更新说明',
   'No version info': '暂无更新说明',
 
   developer: '开发者',
@@ -78,10 +78,7 @@ module.exports = {
   Passed: '已通过',
   Rejected: '已拒绝',
   Draft: '待提交',
-  Suspended: '已暂停',
-  Starting: '启动中',
-  Working: '工作中',
-  Stopping: '停止中',
+  Suspended: '已下架',
   Submitted: '等待审核',
   Submit: '提交',
   Review: '审核',
@@ -98,7 +95,6 @@ module.exports = {
   'Pending-review': '审核中',
   creating: '创建中',
   deleting: '删除中',
-  ceasing: '释放中',
 
   'Test Steps': '测试步骤',
   VERSION_SUBMIT_TEST_STEPS:
@@ -115,10 +111,6 @@ module.exports = {
     '在正式提交审核之前，请确认你的应用已经通过了以下基本功能的测试',
   VERSION_SUBMIT_DOC: '更全面的测试手册请参看',
   'Develop and test guide': '《开发者测试指南》',
-  VERSION_NUMBER_DESC:
-    '应用版本的重要标识，只能包含数字、小数点及中括号("[]")，并且必需以数字开头并包含小数点',
-  VERSION_NUMBER_ERROR_NOTE:
-    '版本号格式错误，只能包含数字、小数点及中括号("[]")，并且必需以数字开头并包含小数点',
   UPDATE_LOG_DESC: '用于详细描述此次更新的具体内容',
 
   'Wrong version number format': '版本号的格式错误',

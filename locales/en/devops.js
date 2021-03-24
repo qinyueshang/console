@@ -19,7 +19,7 @@
 module.exports = {
   'Create DevOps Project': 'Create DevOps Project',
   'Delete DevOps Project': 'Delete DevOps Project',
-  'DevOps Basic Info': 'DevOps Basic Info',
+  'DevOps Basic Info': 'DevOps Basic Information',
   'DevOps Credentials': 'DevOps Credentials',
   'DevOps Member': 'DevOps Member',
   'DevOps Members': 'DevOps Members',
@@ -50,10 +50,10 @@ module.exports = {
     'You can create or contact the project manager to invite you to the DevOps project to start your work.',
 
   DEVOPS_PROJECT_CREDENTIALS_DESC:
-    'Credential is an object that contains some sensitive data, such as username and password, SSH key and Token. It is used to provide authentication for the process of pulling code, pushing/pulling images, executing SSH scripts, etc. when a pipeline is running.',
+    'Credentials are objects that contain some sensitive data, such as username and password, SSH key and Token. They are used to provide authentication for pulling code, pushing/pulling images, executing SSH scripts, etc. when a pipeline is running.',
 
   DEVOPS_PROJECT_ROLES_DESC:
-    'The project roles defines the permissions that users have under the current DevOps project.',
+    'The project roles define the permissions that users have under the current DevOps project.',
   DEVOPS_PROJECT_MEM_DESC: 'Manage and assign roles to project members',
 
   DELETE_DEVOPS_TIP:
@@ -63,9 +63,9 @@ module.exports = {
   DEVOPS_TIP_GITOPS_A:
     'You can start using GitOps by creating a pipeline that is associated with the code repository and deploying steps with Kubernetes.',
 
-  DEVOPS_TIP_TYPE_Q: 'Which code repositories are supported by the Pipeline?',
+  DEVOPS_TIP_TYPE_Q: 'Which code repositories are supported by pipelines?',
   DEVOPS_TIP_TYPE_A:
-    'The pipeline supports code repositories of Git, GitHub, SVN, and Bitbucket Server.',
+    'Pipelines support code repositories of Git, GitHub, Gitlab, SVN, and Bitbucket Server.',
 
   NO_DEVOPS_INSTALL: 'DevOps not installed',
 }

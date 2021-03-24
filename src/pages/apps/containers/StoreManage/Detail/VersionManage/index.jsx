@@ -17,7 +17,6 @@
  */
 
 import React from 'react'
-import { get } from 'lodash'
 import { inject } from 'mobx-react'
 
 import VersionList from 'apps/components/Lists/VersionList'
@@ -25,20 +24,13 @@ import VersionList from 'apps/components/Lists/VersionList'
 @inject('detailStore', 'versionStore')
 export default class VersionManage extends React.Component {
   render() {
-    const { workspace, appId } = this.props.match.params
-    const isAdmin = get(this.props.detailStore, 'isAdmin', false)
+    const { detailStore, versionStore, match } = this.props
 
     return (
       <VersionList
-        isAdmin={isAdmin}
-        appStore={this.props.detailStore}
-        versionStore={this.props.versionStore}
-        appId={appId}
-        workspace={workspace}
-        params={this.props.match.params}
-        appDetail={get(this.props.detailStore, 'detail', {})}
-        title={t('Versions')}
-        empty={t('No versions data')}
+        appStore={detailStore}
+        versionStore={versionStore}
+        match={match}
       />
     )
   }

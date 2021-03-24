@@ -23,7 +23,7 @@ import { set, get, cloneDeep } from 'lodash'
 
 import { Loading } from '@kube-design/components'
 
-import Tree from 'components/Tree/index'
+import Tree from 'components/Tree'
 
 import styles from './index.scss'
 
@@ -37,18 +37,21 @@ export default class GroupTree extends Component {
   }
 
   renderTree = () => {
-    const { treeData, onSelect } = this.props
+    const { treeData, onSelect, group } = this.props
     const data = set(cloneDeep(treeData)[0], 'disabled', true)
     const defaultKey = get(treeData[0].children[0], 'key', 'root')
 
     return (
-      <Tree
-        showLine
-        defaultExpandedKeys={[defaultKey]}
-        defaultSelectedKeys={[defaultKey]}
-        treeData={data}
-        onSelect={onSelect}
-      />
+      <div className={styles.treeWrapper}>
+        <Tree
+          showLine
+          defaultExpandedKeys={[defaultKey]}
+          defaultSelectedKeys={[defaultKey]}
+          treeData={data}
+          selectedKeys={[group]}
+          onSelect={onSelect}
+        />
+      </div>
     )
   }
 
@@ -60,14 +63,14 @@ export default class GroupTree extends Component {
     const { isLoading, total } = this.props
 
     return (
-      <div className={styles.treeWrapper}>
+      <div className={styles.wrapper}>
         {isLoading && (
           <div className={styles.loading}>
             <Loading spinning={isLoading} />
           </div>
         )}
-        {total > 0 && this.renderTree()}
         {total === 0 && !isLoading && this.renderPlaceHolder()}
+        {total > 0 && this.renderTree()}
       </div>
     )
   }

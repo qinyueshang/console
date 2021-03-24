@@ -80,7 +80,7 @@ module.exports = {
   'Recent Visit': '最近訪問',
 
   CLUSTERS_MANAGE_DESC:
-    '對多集群以及每个集群的基礎資源、服務组件和應用資源等的統一管理',
+    '對多集群以及每個集群的基礎資源、服務组件和應用資源等的統一管理',
   ACCESS_CONTROL_DESC: '對平台中的企業空間、帳號、以及角色權限進行統一管理',
   APP_STORE_MANAGEMENT_DESC:
     '對雲原生應用的上架、下架以及審核等應用全生命週期的統一管理',
@@ -95,6 +95,7 @@ module.exports = {
   Warning: '異常',
   Draining: '疏散中',
   Pending: '等待中',
+  Upgrading: '升级中',
   Stopped: '已停止',
   Disabled: '已停用',
   'Not Enabled': '未啟用',
@@ -179,13 +180,13 @@ module.exports = {
   NUM_UNIT: '個',
   Password: '密碼',
 
-  NOT_ENABLE: '{resource}暫未啟用',
-  NOT_AVAILABLE: '暫時没有可用的{resource}',
-  NO_RESOURCE: '暫時没有{resource}',
-  RESOURCE_NOT_FOUND: '很抱歉，没有找到您所尋找的資源。',
+  NOT_ENABLE: '{resource} 暫未啟用',
+  NOT_AVAILABLE: '暫時沒有可用的 {resource}',
+  NO_RESOURCE: '暫時沒有 {resource}',
+  RESOURCE_NOT_FOUND: '很抱歉，沒有找到您所尋找的資源。',
   'No Available Resource': '暫無可用資源',
   'No Data': '暫無數據',
-  'No Relevant Data': '暫時没有相關數據',
+  'No Relevant Data': '暫時沒有相關數據',
 
   or: '或',
   refresh: '刷新',
@@ -264,18 +265,18 @@ module.exports = {
 
   NAME_DESC:
     '最長 63 個字元，只能包含小寫字母、數字及分隔符號("-")，且必須以小寫字母或數字開頭及結尾',
-  NAME_TOO_LONG: '最長 63 个字元',
+  NAME_TOO_LONG: '最長 63 個字元',
 
   LONG_NAME_DESC:
     '最長 253 個字元，只能包含小寫字母、數字及分隔符號("-")，且必須以小寫字母或數字開頭及結尾',
   LONG_NAME_TOO_LONG: '最長 253 個字元',
   ALIAS_DESC: '别名可以由任意字元组成，幫助您更好的區分資源，最長 63 個字元。',
   LABEL_FORMAT_DESC:
-    '標籤的 key 和 value 最長 63 個字元，key 如果包含域名, 則最長 253 字元。只能包含大小寫字母、數字, 分隔符號("-")，下底線(_)及小數點(.)，且必須以數字或大小寫開頭和結尾',
+    '標籤的 key 和 value 最長 63 個字元，key 如果包含域名，則最長 253 字元。只能包含大小寫字母、數字，分隔符號("-")，下底線(_)及小數點(.)，且必須以數字或大小寫開頭和結尾',
   DESCRIPTION_DESC: '描述資訊不超過 256 個字元',
-  PROJECT_DESC: '將根據項目資源進行分組, 可以按項目對資源進行查看管理',
+  PROJECT_DESC: '將根據項目資源進行分組，可以按項目對資源進行查看管理',
   'MULTI-CLUSTER_PROJECT_CREATE_DESC':
-    '將根據項目資源進行分組, 可以按項目對資源進行查看管理',
+    '將根據項目資源進行分組，可以按項目對資源進行查看管理',
   Description: '描述資訊',
 
   'Please input name': '請輸入名稱',
@@ -284,9 +285,11 @@ module.exports = {
   'Please select project': '請選擇項目',
   'Please select version': '請選擇版本',
   'Please input password': '請輸入密碼',
-  'Please input a keyword to filter': '請輸入關鍵字過濾',
+  'Filter by keyword': '請輸入關鍵字過濾',
   'Search by keyword': '請輸入關鍵字進行尋找',
   'Search by name': '請輸入名稱進行尋找',
+  'Name validation failed':
+    '避免使用前綴為 kube- 的名稱，因為它是為 Kubernetes 系統命名空間保留的',
   'Name exists': '名稱已存在',
   'Duplicate keys': '無法添加重復的 key',
   'Empty keys': '無法添加空的 key',
@@ -312,29 +315,26 @@ module.exports = {
 
   'No Limit': '無限制',
   Quota: '配額',
-  'Left Quota': '剩餘配額',
+  'Remaining Quota': '剩餘配額',
 
   TOTAL_ITEMS: '共 {num} 個項目',
 
-  'Enter query conditions to filter': '輸入查詢條件進行過濾',
+  'Search with filters': '輸入查詢條件進行過濾',
 
-  DELETE_TITLE: '{type}刪除確認?',
+  DELETE_TITLE: '{type} 刪除確認？',
   DELETE_TIP:
-    '確定刪除{type} <strong>{resource}</strong> ? {type}刪除後將無法恢復。',
+    '確定刪除 {type} <strong>{resource}</strong> ？ {type} 刪除後將無法恢復。',
   DELETE_CONFIRM_TIP:
-    '請輸入{type}名稱 <strong>{resource}</strong> 確保您已了解操作所带來的風險。',
+    '請輸入 {type} 名稱 <strong>{resource}</strong> 確保您已了解操作所帶來的風險。',
   DELETE_APP_RESOURCE_TIP:
-    '資源被應用 <strong>{app}</strong> 管理, 刪除後可能影響此應用的正常使用。請輸入{type}名稱 <strong>{resource}</strong> 確保您已了解操作所带來的風險。',
-  DELETE_CONFIRM_PLACEHOLDER: '請輸入{resource}',
+    '資源被應用 <strong>{app}</strong> 管理, 刪除後可能影響此應用的正常使用。請輸入 {type }名稱 <strong>{resource}</strong> 確保您已了解操作所帶來的風險。',
+  DELETE_CONFIRM_PLACEHOLDER: '請輸入 {resource}',
 
-  REMOVE_USER_TIP: '確定移除用戶 <strong>{username}</strong> ? ',
+  REMOVE_USER_TIP: '確定移除用戶 <strong>{username}</strong> ？',
 
-  REMOVE_MEMBER_TIP: '確定移除成員 <strong>{resource}</strong> ?',
+  REMOVE_MEMBER_TIP: '確定移除成員 <strong>{resource}</strong> ？',
 
-  REMOVE_GROUP_TIP: '確定移除組織 <strong>{resource}</strong> ?',
-
-  DESTROY_TITLE: '確認銷毀?',
-  DESTROY_TIP: '確定銷毀{type} <strong>{resource}</strong> ?',
+  REMOVE_GROUP_TIP: '確定移除組織 <strong>{resource}</strong> ？',
 
   'Error Tips': '錯誤提示',
 
@@ -353,10 +353,10 @@ module.exports = {
 
   'Version Info': '版本資訊',
   Homepage: '首頁',
-  'Params Configuration': '参數配置',
-  'Add parameter': '添加参數',
-  'Add Param': '添加参數',
-  'No parameters': '暫無参數',
+  'Params Configuration': '參數配置',
+  'Add parameter': '添加參數',
+  'Add Param': '添加參數',
+  'No parameters': '暫無參數',
   'Back To List': '返回列表',
   List: '列表',
   'Time Range': '時間範圍',
@@ -392,7 +392,7 @@ module.exports = {
   platform: '平台',
   Reselect: '重新選擇',
   body: '内容',
-  author: '作者',
+  Author: '作者',
   Size: '大小',
   password: '密碼',
   None: '無',
@@ -401,7 +401,7 @@ module.exports = {
   Download: '下載',
   Aborted: '已取消',
   Paused: '已暫停',
-  'This param is required': '此参數不能為空',
+  'This param is required': '此參數不能為空',
   Images: '鏡像',
   filename: '文件名稱',
   NODES: '節點',
@@ -413,9 +413,9 @@ module.exports = {
   'Platform-level Access Control': '平台級的訪問控制',
 
   NOT_FOUND_DESC:
-    '🙇 對不起没有找到相關資源，系統將在 {time}s 後返回 <a href="{link}">工作台</a>',
+    '🙇 對不起沒有找到相關資源，系統將在 {time}s 後返回 <a href="{link}">工作台</a>',
   DETAIL_NOT_FOUND_DESC:
-    '🙇 對不起没有找到相關資源，返回 <a href="{link}">{title}</a>',
+    '🙇 對不起沒有找到相關資源，返回 <a href="{link}">{title}</a>',
   Toolbox: '工具箱',
   TOOLBOX_DESC: '提供紀錄、事件、審計等相關查詢工具',
   'Analysis Tools': '分析工具',
@@ -483,9 +483,9 @@ module.exports = {
   'Not running yet': '未運行',
   successful: '成功',
   Tag: '標籤',
-  PATTERN_NAME_INVALID_TIP: '名稱不合法 （僅支持小寫字母、數字、底線）',
+  PATTERN_NAME_INVALID_TIP: '名稱不合法（僅支持小寫字母、數字、底線）',
   'No resources matching the filter have been found yet':
-    '暫時没有找到符合過濾條件的資源',
+    '暫時沒有找到符合過濾條件的資源',
   'You can try to': '您可以嘗試',
   'clear filters': '清空過濾條件',
   CONTENT_NOT_SAVED_TIPS: '内容已經修改但並未保存',
@@ -502,11 +502,11 @@ module.exports = {
 
   REPS_ADDRESS: '項目地址',
   ISSUE_FEEDBACK: '問題反饋',
-  PART_IN_DISCUSSION: '参與討論',
+  PART_IN_DISCUSSION: '參與討論',
   CODE_CONTRIBUTE: '貢獻代碼',
   GITHUB_STAR: '點亮Star',
 
-  CONDITION_STATUS_ANALYSE: '狀態分析(Conditions)',
+  CONDITION_STATUS_ANALYSE: '狀態分析 (Conditions)',
 
   NAV_PROJECTS: '項目管理',
   NAV_ACCOUNTS: '帳戶管理',
@@ -530,8 +530,6 @@ module.exports = {
   'User Guides': '用戶指南',
   'Quick Support': '快速獲取幫助',
   'Developer Community': '開發者社區',
-  HISTORY_DESC:
-    '當您在多個企業空間或者項目下進行協同工作時，瀏覽器會紀錄下您最近訪問的路徑，您可以透過 F1 / (Win + K) / (Command + K) 查看歷史紀錄，來快速切換您的訪問資源。',
   NO_HISTORY_TITLE: '瀏覽器暫未收錄到您對集群或者企業空間等區域的訪問紀錄',
   NO_HISTORY_DESC: '您可以嘗試對企業空間或者集群、項目等資源的訪問',
   USER_GUIDES_DESC: '最詳盡的 KubeSphere 用戶指南文件',

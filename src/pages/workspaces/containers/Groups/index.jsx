@@ -50,6 +50,7 @@ export default class Groups extends React.Component {
     this.store = new GroupStore()
     this.userStore = new UserStore()
     this.websocket = new WebsocketStore()
+    this.silentLoading = false
 
     this.state = {
       group: '',
@@ -61,7 +62,7 @@ export default class Groups extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchGroup()
+    this.fetchGroup(true)
     this.initWebsocket()
   }
 
@@ -89,12 +90,13 @@ export default class Groups extends React.Component {
       this.disposer = reaction(
         () => this.websocket.message,
         message => {
-          if (
-            message.type === 'MODIFIED' ||
-            message.type === 'ADDED' ||
-            message.type === 'DELETED'
-          ) {
+          this.silentLoading = true
+
+          if (message.type === 'MODIFIED' || message.type === 'ADDED') {
             _getData()
+          }
+          if (message.type === 'DELETED') {
+            _getData(true)
           }
         }
       )
@@ -104,20 +106,13 @@ export default class Groups extends React.Component {
   fetchGroup = refresh => {
     const { workspace } = this.props.match.params
     this.store.fetchGroup({ workspace }).then(() => {
-      if (!this.unmount) {
-        if (refresh) {
-          this.setState(prev => ({
-            refreshFlag: !prev.refreshFlag,
-          }))
-        } else {
-          const { treeData } = this.store
-          if (!this.state.group) {
-            this.setState({
-              group: get(treeData[0], 'children[0].key', ''),
-              groupTitle: get(treeData[0], 'children[0].group_name', ''),
-            })
-          }
-        }
+      if (!this.unmount && refresh) {
+        const { treeData } = this.store
+        this.setState(prev => ({
+          refreshFlag: !prev.refrseshFlag,
+          group: get(treeData[0], 'children[0].key', ''),
+          groupTitle: get(treeData[0], 'children[0].group_name', ''),
+        }))
       }
     })
   }
@@ -157,7 +152,7 @@ export default class Groups extends React.Component {
         workspace,
       })
       .then(() => {
-        Notify.success({ content: `${t('Added Successfully')}!` })
+        Notify.success({ content: `${t('Added Successfully')}` })
         this.setState(prev => ({
           refreshFlag: !prev.refreshFlag,
           selectUserKeys: [],
@@ -212,7 +207,7 @@ export default class Groups extends React.Component {
             <Icon name="refresh" />
           </Button>
           <Button type="control" onClick={this.showEditModal}>
-            {t('Maintenance organization')}
+            {t('Maintain Organization')}
           </Button>
         </LevelRight>
       </Level>
@@ -223,7 +218,7 @@ export default class Groups extends React.Component {
     return (
       <Level>
         <LevelLeft>
-          {t.html('Add members to', { group: this.state.groupTitle })}
+          {t.html('Add the member to', { group: this.state.groupTitle })}
         </LevelLeft>
         <LevelRight>
           <Button type="primary" onClick={this.handleAddGroup}>
@@ -248,8 +243,9 @@ export default class Groups extends React.Component {
             <div className={styles.container}>
               <GroupTree
                 treeData={treeData}
+                group={group}
                 total={total}
-                isLoading={isLoading}
+                isLoading={this.silentLoading ? false : isLoading}
                 onSelect={this.handleSelectTree}
               />
               <GroupUser
@@ -268,7 +264,7 @@ export default class Groups extends React.Component {
         {showModal && (
           <EditGroupModal
             visible={showModal}
-            title={t('Maintenance organization')}
+            title={t('Maintain Organization')}
             treeData={treeData}
             rowTreeData={rowTreeData}
             store={this.store}

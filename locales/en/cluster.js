@@ -25,7 +25,7 @@ module.exports = {
   'Available Clusters': 'Available Clusters',
   'Choose a provider': 'Choose a provider',
   'Click to Copy': 'Click to Copy',
-  'Cluster Info': 'Cluster Info',
+  'Cluster Info': 'Cluster Information',
   'Cluster initialization failed': 'Cluster initialization failed',
   'Cluster List': 'Cluster List',
   'Cluster Management': 'Cluster Management',
@@ -39,7 +39,7 @@ module.exports = {
   'Copy successfully': 'Copy successfully',
   'Custom Resources': 'CRDs',
   'Edit cluster basic information': 'Edit cluster basic information',
-  'Edit Cluster Info': 'Edit Cluster Info',
+  'Edit Cluster Info': 'Edit Cluster Information',
   'Edit Visibility': 'Edit Visibility',
   'Enter the project': 'Enter the project',
   'Go back': 'Go back',
@@ -48,7 +48,6 @@ module.exports = {
   Import: 'Import',
   'Import Kubernetes Cluster': 'Import Kubernetes Cluster',
   'Invite members to the cluster': 'Invite members to the cluster',
-  'IP Ranges': 'IP Ranges',
   'Kubernetes Settings': 'Kubernetes Settings',
   'Kubernetes Status': 'Kubernetes Status',
   'Kubernetes Version': 'Kubernetes Version',
@@ -84,12 +83,12 @@ module.exports = {
   'How to Add': 'How to Add',
   'New Cluster': 'New Cluster',
   'Import Cluster': 'Import Cluster',
-  'Cluster Basic Info': 'Cluster Basic Info',
+  'Cluster Basic Info': 'Cluster Basic Information',
   'Node Settings': 'Node Settings',
   'Please add at least one cluster node':
     'Please add at least one cluster node',
   "Please specify the node's roles": "Please specify the node's roles",
-  'Please input the ip address': 'Please input the ip address',
+  'Please input the IP address': 'Please input the IP address',
   'Add node to the cluster': 'Add node to the cluster',
   'Node Internal IP Address': 'Node Internal IP Address',
   'SSH Port': 'SSH Port',
@@ -109,7 +108,7 @@ module.exports = {
   'etcd Backup Period': 'etcd Backup Period',
   'Keep Backup Number': 'Keep Backup Number',
   'KubeSphere Settings': 'KubeSphere Settings',
-  'Invalid ip address': 'Invalid ip address',
+  'Invalid IP address': 'Invalid IP address',
 
   NO_CLUSTER_TIP: 'Please add at least one cluster.',
   NO_CLUSTER_TIP_DESC:
@@ -212,7 +211,7 @@ module.exports = {
   NEW_CLUSTER_DESC: 'add a new Kubernetes cluster',
   CLUSTER_NODE_SETTINGS_DESC: 'add the nodes for the cluster',
   CLUSTER_NODE_INTERNAL_IP_DESC:
-    'Intranet IP addresses that can be accessed between nodes in the cluster.',
+    'The internal IP address for the connection between cluster nodes.',
   NODE_ROLE_DESC:
     'The number of master nodes needs to be 1 or 3, and the number of woker nodes must be at least 1.',
   SSH_IP_ADDRESS_DESC:
@@ -273,4 +272,7 @@ module.exports = {
 
   CLUSTER_CREATION_PROGRESS_TIP:
     'According to the size of the created cluster and the difference in network connection, it takes about 30 to 60 minutes to create the entire cluster. ',
+
+  CLUSTER_REGION: 'Cluster Region',
+  CLUSTER_ZONE: 'Cluster Zone',
 }

@@ -41,10 +41,10 @@ module.exports = {
   'Not logged in yet': 'Not logged in yet',
   'Password length is at least 6 characters':
     'Password length is at least 6 characters',
-  'Password Setting': 'Password Setting',
+  'Password Setting': 'Password Settings',
   'Password Strength': 'Password Strength',
   'Please input current password': 'Please input current password',
-  'Please input email': 'Please input email',
+  'Please input email': 'Please enter the email',
   'Please input user name': 'Please input user name',
   'Please repeat the new password': 'Please repeat the new password',
   'Please select role': 'Please select role',
@@ -68,11 +68,12 @@ module.exports = {
   USER_AUTHLIMITEXCEEDED: 'Login Restricted',
   USER_PENDING: 'Pending',
   USER_DISABLED: 'Disabled',
-  USER_NAME_DESC: 'Username can only contain lowercase letters and numbers.',
+  USER_NAME_DESC:
+    'It can only contain lowercase letters, numbers and hyphens("-"), and must begin and end with a lowercase letter or a number. The maximum length of characters is set to 63.',
   EMAIL_DESC: 'The email address is used for login.',
   USER_SETTING_EMAIL_DESC: 'Email is used for login.',
   PASSWORD_DESC:
-    'Password must contain numbers and letters, and must be 6~64 characters in length.',
+    'A password must contain numbers and letters, and must be 6~64 characters in length.',
   ROLE_DESC:
     'The role types are classified into cluster and project. The role of cluster type is used for managing the cluster.',
   USER_DESC:

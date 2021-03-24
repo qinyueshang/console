@@ -54,7 +54,10 @@ module.exports = {
   'Please input service name': '請輸入服務名稱',
   'Please input ExternalName': '請輸入 ExternalName',
   'Specify Workload': '指定工作負載',
+  'Specify Node': '指定節點',
   'Add Selector': '添加選擇器',
+
+  Auto: '自动',
 
   'Invalid port': '無效端口',
   'Not Associate': '不關聯',
@@ -66,7 +69,7 @@ module.exports = {
 
   'Sure to delete the service(s)?': '確認刪除服務',
   'No related resources found with current service(s)':
-    '目前服務下没有關聯的資源',
+    '目前服務下沒有關聯的資源',
 
   'Automatically assign Service IP': '自動分配服務 IP',
   'Do not assign Service IP': '不分配服務 IP',
@@ -105,7 +108,7 @@ module.exports = {
   'Commonly included tags in the current workloads':
     '目前的工作負載中共同包含的標籤',
   SERVICE_SELECTOR_AFFECT_2: '共影響到 {count} 個工作負載',
-  ' has no corresponding workload.': '没有對應的工作負載',
+  ' has no corresponding workload.': '沒有對應的工作負載',
   'Please input selectors that have corresponding workloads':
     '請輸入有對應工作負載的選擇器',
   Creating: '正在創建',
@@ -133,6 +136,8 @@ module.exports = {
 
   SPECIFY_WORKLOAD_DESC:
     '指定工作負載可以將工作負載所創建的容器組副本的 Label 作為預填充内容',
+
+  SPECIFY_NODE_DESC: '指定節點可以將節點的 Label 作為預填充內容',
 
   SERVICE_TYPES_Q: '服務的類型',
   SERVICE_TYPES_A:

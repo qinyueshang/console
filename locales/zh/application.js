@@ -27,7 +27,7 @@ module.exports = {
   Deploy: '部署',
   'Application Type': '应用类型',
   TOTAL_APPS: '共计 {num} 个应用',
-  TOTAL_COLLECTIONS: '共计 {num} 个接收者',
+  TOTAL_COLLECTIONS: '共计 {num} 个接收器',
   Upgrade: '升级',
   Rollback: '回滚',
 
@@ -56,6 +56,7 @@ module.exports = {
     '示例应用可以帮助您快速入手应用创建, 以及应用治理功能',
 
   'Add Service': '添加服务',
+  'Add Route': '添加应用路由',
   'Add Component': '添加组件',
   'Edit Component': '编辑组件',
   'Add New Component': '添加新组件',
@@ -168,6 +169,7 @@ module.exports = {
   'Deploy sample app Bookinfo': '部署示例应用 Bookinfo',
   'Please save the current form first': '请先保存当前表单',
   'Add Component Successfully': '添加组件成功',
+  'Add Route Successfully': '添加应用路由成功',
 
   'Connection pool management': '连接池管理',
   CONNECTION_POOL_TIP:
@@ -231,14 +233,14 @@ module.exports = {
     '来自于企业空间的自制应用模板以及应用仓库中添加的第三方Helm 应用模板',
   COMPOSING_APP_DESC: '通过资源编排的方式发布服务构建应用(支持应用治理功能)',
   APP_TEMPLATES_MODAL_DESC:
-    '应用模板来自于企业空间和第三方的Helm应用模板，支持一键部署并可通过可视化的方式在KubeSphere中展示并提供部署及管理的功能',
+    '应用模板来自于企业空间和第三方的 Helm 应用模板，支持一键部署并可通过可视化的方式在 KubeSphere 中展示并提供部署及管理的功能',
   APP_REPOS_DESC:
     '应用仓库来自于第三方的 Helm Chart Repo，通过可视化的方式在 KubeSphere 中展示并提供部署及管理功能，用户可以基于应用仓库中的模板快速地一键部署应用。',
   SEARCH_TIPS: '您可以根据相关条件进行过滤',
 
   'From workspace': '来自企业空间',
   'Add stateful or stateless services': '添加有状态服务或无状态服务',
-  'Add Internet access rule for the application': '为应用添加外网访问规则',
+  'Add an Internet access rule for the application': '为应用添加外网访问规则',
 
   INTERNET_ACCESS_DESC: '可以设置应用的外网访问规则(Ingress)',
 

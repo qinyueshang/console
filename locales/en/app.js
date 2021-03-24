@@ -18,7 +18,7 @@
 
 module.exports = {
   'A general introduction to the application':
-    'A general introduction to the application',
+    'A general introduction to the app',
   'Activate Successfully': 'Activate Successfully',
   'Add Version': 'Add Version',
   'Add Version Successfully': 'Add Version Successfully',
@@ -28,32 +28,32 @@ module.exports = {
   'App Categories': 'App Categories',
   'App Category': 'App Category',
   'App Config': 'App Config',
+  'Current App Config': 'Current App Config',
+  'New App Config': 'New App Config',
   'App Deploy': 'App Deploy',
   'App Description': 'App Description',
   'App Details': 'App Details',
   'App Home': 'App Home',
-  'App Info': 'App Info',
+  'App Info': 'App Information',
   'App Introduction': 'App Introduction',
   'App Name': 'App Name',
   'App Number': 'App Number',
-  'App Provider': 'App Provider',
   'App Review': 'App Review',
   'App Reviews': 'App Reviews',
   'App Screenshots': 'App Screenshots',
   'App Store': 'App Store',
   'App Store Management': 'App Store Management',
   'App Version': 'App Version',
+  'Current App Version': 'Current App Version',
   'App Version Types': 'App Version Types',
-  'Application Name': 'Application Name',
-  'Application Number / Rejection Reason':
-    'Application Number / Rejection Reason',
-  'Application Version': 'Application Version',
-  'Apps Management': 'Apps Management',
-  'Base Info': 'Base Info',
+  'Application Name': 'App Name',
+  'Rejection Reason': 'Rejection Reason',
+  'Application Version': 'App Version',
+  'Apps Management': 'App Management',
+  'Base Info': 'Basic Information',
   'Business introduction': 'Business introduction',
   'Cancel Successfully': 'Cancel Successfully',
   'Category Name': 'Category Name',
-  'Certified Provider': 'Certified Provider',
   'Change Category': 'Change Category',
   'Chart Files': 'Chart Files',
   'Company website': 'Company website',
@@ -75,7 +75,7 @@ module.exports = {
   Handle: 'Handle',
   Icon: 'Icon',
   'In Project': 'In Project',
-  'Index Successfully': 'Index Successfully',
+  'Index Successfully': 'Indexed successfully.',
   'Instance Name': 'Instance Name',
   Introduction: 'Introduction',
   'Latest Version': 'Latest Version',
@@ -102,7 +102,6 @@ module.exports = {
   'please upload again': 'please upload again',
   Processed: 'Processed',
   Provider: 'Provider',
-  'Provider No': 'Provider No',
   'Re-upload': 'Re-upload',
   'Recover Successfully': 'Recover Successfully',
   'Reject Reason': 'Reject Reason',
@@ -121,13 +120,13 @@ module.exports = {
   'Service Provider Website': 'Service Provider Website',
   "Service provider's official website address":
     "Service provider's official website address",
-  'Start Create': 'Start Create',
-  'Start edit': 'Start edit',
-  'Submit Successfully': 'Submit Successfully',
+  'Start Create': 'Start Creating',
+  'Start editing': 'Start editing',
+  'Submit Successfully': 'Submitted Successfully',
   Submitter: 'Submitter',
-  'Suspend Successfully': 'Suspend Successfully',
+  'Suspend Successfully': 'Suspended Successfully',
   'Terms of service': 'Terms of service',
-  'Test Deploy': 'Test Deploy',
+  'Test Deployment': 'Test Deployment',
   'Time of entry': 'Time of entry',
   Uncategorized: 'Uncategorized',
   Unprocessed: 'Unprocessed',
@@ -137,7 +136,7 @@ module.exports = {
   'Upload Icon': 'Upload Icon',
   'Upload icon': 'Upload icon',
   'Upload Screenshots': 'Upload Screenshots',
-  'Upload successfully': 'Upload successfully',
+  'Upload successfully': 'Uploaded successfully',
   'Upload Template': 'Upload Template',
   Uploading: 'Uploading',
   'Version No': 'Version No',
@@ -154,18 +153,18 @@ module.exports = {
   APP_TEMPLATES_DESC:
     'KubeSphere provides full lifecycle management for applications. You can upload or create new app templates and test them quickly. In addition, you can publish your apps to App Store so that other users can deploy with one click.',
 
-  DEVELOP_APP_TITLE: 'How to develop app templates?',
+  DEVELOP_APP_TITLE: 'How do I develop app templates?',
   DEVELOP_APP_DESC:
     'You can upload Helm Chart or use the resource orchestration tool provided by KubeSphere to develop app templates.',
 
-  HOW_PUBLISH_APP_TITLE: 'How to publish applications to App Store?',
+  HOW_PUBLISH_APP_TITLE: 'How to publish applications to the App Store?',
   HOW_PUBLISH_APP_DESC:
-    'KubeSphere currently supports uploading Helm Charts through app templates within the workspace, where you can submit your template for review. Once the template is approved, you can publish it to App Store.',
+    'KubeSphere currently supports uploading Helm Charts through app templates within the workspace, where you can submit your template for review. Once the template is approved, you can publish it to the App Store.',
 
   HOW_APP_DEPLOY_TITLE: 'How to deploy and test applications',
 
   APPS_CREATE_DESC:
-    'KubeSphere provides lifecycle management of app templates. You can upload or create new app templates and test them quickly. In addition, you can publish your app templates to App Store so that other users can purchase and deploy them.',
+    'KubeSphere provides lifecycle management of app templates. You can upload or create new app templates and test them quickly. In addition, you can publish your app templates to the App Store so that other users can deploy them.',
 
   APP_NAME_DESC: 'Important Identification of Applications',
 
@@ -176,7 +175,7 @@ module.exports = {
   APP_ICON_FORMAT: 'Format: png; transparent background preferred',
   APP_ICON_SIZE: 'Image size: 96px*96px',
 
-  APP_STORE_DESC: 'Manage applications of the store.',
+  APP_STORE_DESC: 'Manage apps of the App Store.',
 
   APP_REVIEW_DESC:
     'Certify service providers and review applications in order to approve or reject the applications to show or not in the store.',
@@ -187,7 +186,7 @@ module.exports = {
   REJECT_REASON_DESC: 'Please fill in the reasons for refusal of review.',
 
   APP_CATEGORIES_DESC:
-    'This module allows you to create, edit and delete categories, and to classify active applications of the store.',
+    'This module allows you to create, edit and delete categories, and to classify active apps of the App Store.',
   APP_CATEGORIES_CREATE_DESC: 'No application data available for the category.',
   ADJUST_CATEGORY_DESC:
     'Application classification will determine the classification of the application in the application store',
@@ -216,7 +215,7 @@ module.exports = {
   HELM_DEVELOP_GUIDE: 'Helm Specification and Application Development',
 
   CATEGORY_NAME_DESC:
-    'No more than 8 characters is recommended; the maximum length of characters is set to 20.',
+    'No more than 8 characters is recommended; the name cannot exceed 20 characters.',
   APP_CATE_All: 'All',
   APP_CATE_UNCATEGORIZED: 'Uncategorized',
 

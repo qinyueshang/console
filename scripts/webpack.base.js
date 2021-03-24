@@ -21,7 +21,6 @@ const autoprefixer = require('autoprefixer')
 const HappyPack = require('happypack')
 const WebpackBar = require('webpackbar')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
-const LocalePlugin = require('./locale-plugin')
 
 const root = path => resolve(__dirname, `../${path}`)
 
@@ -30,6 +29,7 @@ const isDev = process.env.NODE_ENV === 'development'
 module.exports = {
   entry: {
     main: './src/core/index.js',
+    terminalEntry:'./src/core/terminal.js'
   },
   moduleRules: [
     {
@@ -38,15 +38,9 @@ module.exports = {
       use: 'happypack/loader?id=jsx',
     },
     {
-      test: /\.jsx?$/,
-      include: root('node_modules'),
-      use: 'cache-loader',
-    },
-    {
       test: /\.svg$/,
       issuer: { test: /\.jsx?$/ },
       use: [
-        { loader: 'cache-loader' },
         { loader: '@svgr/webpack', options: { icon: true } },
       ],
     },
@@ -78,9 +72,6 @@ module.exports = {
       entrypoints: true,
       writeToDisk: true,
       output: '../dist/manifest.json',
-    }),
-    new LocalePlugin({
-      locales: '../locales',
     }),
     new WebpackBar(),
   ],

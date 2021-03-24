@@ -17,15 +17,7 @@
  */
 
 import React from 'react'
-import {
-  result as _result,
-  get,
-  omit,
-  debounce,
-  isArray,
-  isUndefined,
-  isEmpty,
-} from 'lodash'
+import { get, omit, debounce, isArray, isUndefined, isEmpty } from 'lodash'
 import { Link } from 'react-router-dom'
 import { toJS } from 'mobx'
 import { parse } from 'qs'
@@ -58,18 +50,7 @@ export default class Activity extends React.Component {
 
   store = this.props.detailStore || {}
 
-  componentDidMount() {
-    this.unsubscribe = this.routing.history.subscribe(location => {
-      if (location.pathname === this.props.match.url) {
-        const query = parse(location.search.slice(1))
-        this.getData({ ...query })
-      }
-    })
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe && this.unsubscribe()
-  }
+  refreshTimer = setInterval(() => this.refreshHandler(), 4000)
 
   get enabledActions() {
     const { devops, cluster } = this.props.match.params
@@ -80,42 +61,17 @@ export default class Activity extends React.Component {
     })
   }
 
+  get isRuning() {
+    const data = get(toJS(this.store), 'activityList.data', [])
+    const runingData = data.filter(
+      item => item.state !== 'FINISHED' && item.state !== 'PAUSED'
+    )
+    return !isEmpty(runingData)
+  }
+
   get isAtBranchDetailPage() {
     return this.props.match.params.branch
   }
-
-  getData(params) {
-    this.store.getActivities({
-      ...this.props.match.params,
-      ...params,
-    })
-  }
-
-  handleFetch = (params, refresh) => {
-    this.routing.query(params, refresh)
-  }
-
-  handleRunning = debounce(async () => {
-    const { detail } = this.store
-    const { params } = this.props.match
-    const isMultibranch = detail.branchNames
-    const hasParameters = detail.parameters && detail.parameters.length
-    Notify.success({ content: `${t('Run Start')}!` })
-
-    if (isMultibranch || hasParameters) {
-      this.trigger('pipeline.params', {
-        devops: params.devops,
-        cluster: params.cluster,
-        params,
-        branches: toJS(detail.branchNames),
-        parameters: toJS(detail.parameters),
-        success: this.handleFetch,
-      })
-    } else {
-      await this.props.detailStore.runBranch(params)
-      this.handleFetch()
-    }
-  }, 500)
 
   get prefix() {
     const { url } = this.props.match
@@ -126,6 +82,80 @@ export default class Activity extends React.Component {
 
   get routing() {
     return this.props.rootStore.routing
+  }
+
+  componentDidMount() {
+    const { params } = this.props.match
+
+    this.unsubscribe = this.routing.history.subscribe(location => {
+      if (location.pathname === this.props.match.url) {
+        const query = parse(location.search.slice(1))
+        this.store.getActivities({
+          ...params,
+          ...query,
+        })
+      }
+    })
+  }
+
+  componentDidUpdate() {
+    if (this.refreshTimer === null && this.isRuning) {
+      clearInterval(this.refreshTimer)
+      this.refreshTimer = setInterval(() => this.refreshHandler(), 4000)
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.refreshTimer)
+    this.unsubscribe && this.unsubscribe()
+  }
+
+  getData = () => {
+    const { params } = this.props.match
+    const query = parse(location.search.slice(1))
+
+    this.store.getActivities({
+      ...params,
+      ...query,
+    })
+  }
+
+  refreshHandler = () => {
+    if (this.isRuning) {
+      this.getData()
+    } else {
+      clearInterval(this.refreshTimer)
+      this.refreshTimer = null
+    }
+  }
+
+  handleRunning = debounce(async () => {
+    const { detail } = this.store
+    const { params } = this.props.match
+    const isMultibranch = detail.branchNames
+    const hasParameters = detail.parameters && detail.parameters.length
+
+    if (isMultibranch || hasParameters) {
+      this.trigger('pipeline.params', {
+        devops: params.devops,
+        cluster: params.cluster,
+        params,
+        branches: toJS(detail.branchNames),
+        parameters: toJS(detail.parameters),
+        success: () => {
+          Notify.success({ content: `${t('Run Start')}` })
+          this.handleFetch()
+        },
+      })
+    } else {
+      Notify.success({ content: `${t('Run Start')}` })
+      await this.props.detailStore.runBranch(params)
+      this.handleFetch()
+    }
+  }, 500)
+
+  handleFetch = (params, refresh) => {
+    this.routing.query(params, refresh)
   }
 
   handleReplay = record => async () => {
@@ -139,6 +169,8 @@ export default class Activity extends React.Component {
       url,
       cluster: params.cluster,
     })
+
+    Notify.success({ content: `${t('Run Start')}` })
     this.handleFetch()
   }
 
@@ -157,6 +189,8 @@ export default class Activity extends React.Component {
     Notify.success({
       content: t('Scan repo success'),
     })
+
+    this.handleFetch()
   }
 
   handleStop = record => async () => {
@@ -257,7 +291,7 @@ export default class Activity extends React.Component {
       title: t('Last Message'),
       dataIndex: 'causes',
       width: '25%',
-      render: causes => _result(causes, '[0].shortDescription', ''),
+      render: causes => get(causes, '[0].shortDescription', ''),
     },
     {
       title: t('Duration'),
@@ -299,15 +333,18 @@ export default class Activity extends React.Component {
     },
   ]
 
-  getActions = () => [
-    {
-      type: 'control',
-      key: 'run',
-      text: t('Run'),
-      action: 'edit',
-      onClick: this.handleRunning,
-    },
-  ]
+  getActions = () =>
+    this.isAtBranchDetailPage
+      ? null
+      : [
+          {
+            type: 'control',
+            key: 'run',
+            text: t('Run'),
+            action: 'edit',
+            onClick: this.handleRunning,
+          },
+        ]
 
   renderFooter = () => {
     const { detail, activityList } = this.store
@@ -347,8 +384,9 @@ export default class Activity extends React.Component {
       const { detail } = this.store
       const runnable = this.enabledActions.includes('edit')
       const isMultibranch = detail.branchNames
+      const isBranchInRoute = get(this.props, 'match.params.branch')
 
-      if (isMultibranch && !isEmpty(isMultibranch)) {
+      if (isMultibranch && !isEmpty(isMultibranch) && !isBranchInRoute) {
         return (
           <EmptyCard desc={t('Pipeline config file not found')}>
             {runnable && (
@@ -370,11 +408,13 @@ export default class Activity extends React.Component {
       )
     }
 
+    const rowKey = get(data[0], 'time') ? 'time' : 'endTime'
+
     return (
       <Table
         data={toJS(data)}
         columns={this.getColumns()}
-        rowKey="startTime"
+        rowKey={rowKey}
         filters={omitFilters}
         pagination={pagination}
         isLoading={isLoading}

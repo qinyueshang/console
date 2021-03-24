@@ -90,7 +90,11 @@ export default class AdvancedSettings extends React.Component {
         {!noWorkload &&
           !isFederated &&
           globals.app.hasClusterModule(cluster, 'network.ippool') && (
-            <PodIPRange cluster={cluster} namespace={this.namespace} />
+            <PodIPRange
+              cluster={cluster}
+              namespace={this.namespace}
+              prefix={`${this.kind}.${this.fedPrefix}spec.template.`}
+            />
           )}
         {(noWorkload || module !== 'statefulsets') && (
           <Form.Group
@@ -129,6 +133,7 @@ export default class AdvancedSettings extends React.Component {
           >
             <NodeSchedule
               kind={this.kind}
+              cluster={cluster}
               namespace={this.namespace}
               formTemplate={formTemplate}
               isFederated={isFederated}
