@@ -59,7 +59,7 @@ module.exports = {
   'Platform Title': '平台標題',
   'Platform Description': '平台描述',
   'Cluster Number': '集群數量',
-  'Platform Running Status': '平台運行狀態',
+  'Platform Status': '平台運行狀態',
   'As of Date': '統計截止時間',
   Workbench: '工作台',
   'Access Control': '訪問控制',
@@ -548,4 +548,7 @@ module.exports = {
 
   EVENT_AGE: '發生時間',
   EVENT_FROM: '來源',
+
+  Bill: '資源消費統計',
+  BILLING_OPERATING_DESC: '查看消费情况',
 }

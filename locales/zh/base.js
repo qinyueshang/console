@@ -59,7 +59,7 @@ module.exports = {
   'Platform Title': '平台标题',
   'Platform Description': '平台描述',
   'Cluster Number': '集群数量',
-  'Platform Running Status': '平台运行状态',
+  'Platform Status': '平台运行状态',
   'As of Date': '统计截止时间',
   Workbench: '工作台',
   'Access Control': '访问控制',
@@ -548,4 +548,6 @@ module.exports = {
   EVENT_FROM: '来源',
 
   CREATE_BY_YAML_DESC: '通过 YAML 定义您要创建的资源',
+  Bill: '资源消费统计',
+  BILLING_OPERATING_DESC: '查看消费情况',
 }

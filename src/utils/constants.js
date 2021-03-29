@@ -228,6 +228,7 @@ export const ICON_TYPES = {
   namespacenetworkpolicies: 'firewall',
   pipelines: 'blockchain',
   ippools: 'eip-group',
+  cluster: 'cluster',
 }
 
 export const MODULE_KIND_MAP = {
@@ -346,7 +347,7 @@ export const WORKSPACE_QUOTAS_MAP = {
 export const REPO_TYPES = [
   { name: 'GitHub', value: 'github', icon: 'github' },
   { name: 'GitLab', value: 'gitlab', icon: 'gitlab' },
-  { name: 'Bitbucket Server', value: 'bitbucket_server', icon: 'bitbucket' },
+  { name: 'Bitbucket', value: 'bitbucket_server', icon: 'bitbucket' },
   { name: 'Git', value: 'git', icon: 'git' },
   { name: 'SVN', value: 'svn', icon: 'svn' },
 ]
@@ -868,6 +869,7 @@ export const API_VERSIONS = {
   networkpolicies: 'apis/networking.k8s.io/v1',
   ippools: 'apis/network.kubesphere.io/v1alpha1',
   storageclasscapabilities: 'apis/storage.kubesphere.io/v1alpha1',
+  meter: 'kapis/metering.kubesphere.io/v1alpha1',
 }
 
 export const MONITOR_GRAPH_COLORS = [

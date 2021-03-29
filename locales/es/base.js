@@ -231,7 +231,7 @@ module.exports = {
   platform: 'plataforma',
   'Platform Description': 'Descripción de la plataforma',
   'Platform Info': 'Información de la plataforma',
-  'Platform Running Status': 'Estado de ejecución de la plataforma',
+  'Platform Status': 'Estado de ejecución de la plataforma',
   'Platform Title': 'Título de plataforma',
   'Platform URL': 'URL de plataforma',
   'Platform Version': 'Versión de plataforma',
@@ -520,4 +520,7 @@ module.exports = {
 
   EVENT_AGE: 'Age',
   EVENT_FROM: 'From',
+
+  Bill: 'Medição e faturamento',
+  BILLING_OPERATING_DESC: 'Check Consumption',
 }
